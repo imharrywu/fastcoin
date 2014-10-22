@@ -1,6 +1,8 @@
 Bitcoin 2nd Core integration/staging tree
-(Tracking the latest official code)
 =========================================
+
+(Tracking the latest official code)
+-----------------------------------
 
 [![Build Status](https://travis-ci.org/bitcoin/bitcoin.svg?branch=master)](https://travis-ci.org/bitcoin/bitcoin)
 
