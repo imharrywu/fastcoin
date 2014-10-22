@@ -69,5 +69,5 @@ export PATH=${PATH}:${MAKENSIS_HOME}:${GIT_BIN_HOME}:${HEXTOOLS_BIN_HOME}
 	
 #make # will use the above path env.
 
-echo @@@@@Remeber to export path for Git@@@@@@@@@@@@@@@
+#echo @@@@@Remeber to export path for Git@@@@@@@@@@@@@@@
 
