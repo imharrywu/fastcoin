@@ -86,12 +86,12 @@
     <message>
         <location line="+7"/>
         <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>These are your {{{AnyCoin}}} addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
+        <translation>These are your ___AnyCoin___ addresses for sending payments. Always check the amount and the receiving address before sending coins.</translation>
     </message>
     <message>
         <location line="+4"/>
         <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>These are your {{{AnyCoin}}} addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</translation>
+        <translation>These are your ___AnyCoin___ addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -207,7 +207,7 @@
     <message>
         <location line="+1"/>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR {{{AnyCoin}}}S&lt;/b&gt;!</translation>
+        <translation>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR ___AnyCoin___S&lt;/b&gt;!</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -239,7 +239,7 @@
     <message>
         <location line="+79"/>
         <source>Bitcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>{{{AnyCoin}}} will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your {{{AnyCoin}}}s from being stolen by malware infecting your computer.</translation>
+        <translation>___AnyCoin___ will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your ___AnyCoin___s from being stolen by malware infecting your computer.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -379,7 +379,7 @@
     <message>
         <location line="+172"/>
         <source>Bitcoin Core client</source>
-        <translation>{{{AnyCoin}}} Core Client</translation>
+        <translation>___AnyCoin___ Core Client</translation>
     </message>
     <message>
         <location line="+157"/>
@@ -394,12 +394,12 @@
     <message>
         <location line="-403"/>
         <source>Send coins to a Bitcoin address</source>
-        <translation>Send coins to a {{{AnyCoin}}} address</translation>
+        <translation>Send coins to a ___AnyCoin___ address</translation>
     </message>
     <message>
         <location line="+46"/>
         <source>Modify configuration options for Bitcoin</source>
-        <translation>Modify configuration options for {{{AnyCoin}}}</translation>
+        <translation>Modify configuration options for ___AnyCoin___</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -429,7 +429,7 @@
     <message>
         <location line="+437"/>
         <source>Bitcoin</source>
-        <translation>{{{AnyCoin}}}</translation>
+        <translation>___AnyCoin___</translation>
     </message>
     <message>
         <location line="-636"/>
@@ -449,7 +449,7 @@
     <message>
         <location line="+30"/>
         <source>Show information about Bitcoin Core</source>
-        <translation>Show information about {{{AnyCoin}}} Core</translation>
+        <translation>Show information about ___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+12"/>
@@ -469,12 +469,12 @@
     <message>
         <location line="+7"/>
         <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>Sign messages with your {{{AnyCoin}}} addresses to prove you own them</translation>
+        <translation>Sign messages with your ___AnyCoin___ addresses to prove you own them</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>Verify messages to ensure they were signed with specified {{{AnyCoin}}} addresses</translation>
+        <translation>Verify messages to ensure they were signed with specified ___AnyCoin___ addresses</translation>
     </message>
     <message>
         <location line="+48"/>
@@ -499,17 +499,17 @@
     <message>
         <location line="-295"/>
         <source>Bitcoin Core</source>
-        <translation>{{{AnyCoin}}} Core</translation>
+        <translation>___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+155"/>
         <source>Request payments (generates QR codes and bitcoin: URIs)</source>
-        <translation>Request payments (generates QR codes and {{{AnyCoin}}}: URIs)</translation>
+        <translation>Request payments (generates QR codes and ___AnyCoin___: URIs)</translation>
     </message>
     <message>
         <location line="+28"/>
         <source>&amp;About Bitcoin Core</source>
-        <translation>&amp;About {{{AnyCoin}}} Core</translation>
+        <translation>&amp;About ___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+32"/>
@@ -524,7 +524,7 @@
     <message>
         <location line="+3"/>
         <source>Open a bitcoin: URI or payment request</source>
-        <translation>Open a {{{AnyCoin}}}: URI or payment request</translation>
+        <translation>Open a ___AnyCoin___: URI or payment request</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -534,14 +534,14 @@
     <message>
         <location line="+1"/>
         <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
-        <translation>Show the {{{AnyCoin}}} Core help message to get a list with possible {{{AnyCoin}}} command-line options</translation>
+        <translation>Show the ___AnyCoin___ Core help message to get a list with possible ___AnyCoin___ command-line options</translation>
     </message>
     <message numerus="yes">
         <location line="+307"/>
         <source>%n active connection(s) to Bitcoin network</source>
         <translation>
-            <numerusform>%n active connection to {{{AnyCoin}}} network</numerusform>
-            <numerusform>%n active connections to {{{AnyCoin}}} network</numerusform>
+            <numerusform>%n active connection to ___AnyCoin___ network</numerusform>
+            <numerusform>%n active connections to ___AnyCoin___ network</numerusform>
         </translation>
     </message>
     <message>
@@ -1009,7 +1009,7 @@ Address: %4
     <message>
         <location line="-5"/>
         <source>The entered address &quot;%1&quot; is not a valid Bitcoin address.</source>
-        <translation>The entered address &quot;%1&quot; is not a valid {{{AnyCoin}}} address.</translation>
+        <translation>The entered address &quot;%1&quot; is not a valid ___AnyCoin___ address.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1055,7 +1055,7 @@ Address: %4
     <message>
         <location filename="../utilitydialog.cpp" line="+31"/>
         <source>Bitcoin Core</source>
-        <translation>{{{AnyCoin}}} Core</translation>
+        <translation>___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+0"/>
@@ -1071,7 +1071,7 @@ Address: %4
     <message>
         <location line="+5"/>
         <source>About Bitcoin Core</source>
-        <translation>About {{{AnyCoin}}} Core</translation>
+        <translation>About ___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+18"/>
@@ -1129,17 +1129,17 @@ Address: %4
     <message>
         <location line="+9"/>
         <source>Welcome to Bitcoin Core.</source>
-        <translation>Welcome to {{{AnyCoin}}} Core.</translation>
+        <translation>Welcome to ___AnyCoin___ Core.</translation>
     </message>
     <message>
         <location line="+26"/>
         <source>As this is the first time the program is launched, you can choose where Bitcoin Core will store its data.</source>
-        <translation>As this is the first time the program is launched, you can choose where {{{AnyCoin}}} Core will store its data.</translation>
+        <translation>As this is the first time the program is launched, you can choose where ___AnyCoin___ Core will store its data.</translation>
     </message>
     <message>
         <location line="+10"/>
         <source>Bitcoin Core will download and store a copy of the Bitcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>{{{AnyCoin}}} Core will download and store a copy of the {{{AnyCoin}}} block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
+        <translation>___AnyCoin___ Core will download and store a copy of the ___AnyCoin___ block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</translation>
     </message>
     <message>
         <location line="+10"/>
@@ -1154,7 +1154,7 @@ Address: %4
     <message>
         <location filename="../intro.cpp" line="+82"/>
         <source>Bitcoin Core</source>
-        <translation>{{{AnyCoin}}} Core</translation>
+        <translation>___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -1236,12 +1236,12 @@ Address: %4
     <message>
         <location line="-125"/>
         <source>Automatically start Bitcoin after logging in to the system.</source>
-        <translation>Automatically start {{{AnyCoin}}} after logging in to the system.</translation>
+        <translation>Automatically start ___AnyCoin___ after logging in to the system.</translation>
     </message>
     <message>
         <location line="+3"/>
         <source>&amp;Start Bitcoin on system login</source>
-        <translation>&amp;Start {{{AnyCoin}}} on system login</translation>
+        <translation>&amp;Start ___AnyCoin___ on system login</translation>
     </message>
     <message>
         <location line="+9"/>
@@ -1271,7 +1271,7 @@ Address: %4
     <message>
         <location line="+7"/>
         <source>Connect to the Bitcoin network through a SOCKS proxy.</source>
-        <translation>Connect to the {{{AnyCoin}}} network through a SOCKS proxy.</translation>
+        <translation>Connect to the ___AnyCoin___ network through a SOCKS proxy.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1347,7 +1347,7 @@ Address: %4
     <message>
         <location line="+17"/>
         <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>Automatically open the {{{AnyCoin}}} client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
+        <translation>Automatically open the ___AnyCoin___ client port on the router. This only works when your router supports UPnP and it is enabled.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -1407,7 +1407,7 @@ Address: %4
     <message>
         <location line="+13"/>
         <source>The user interface language can be set here. This setting will take effect after restarting Bitcoin.</source>
-        <translation>The user interface language can be set here. This setting will take effect after restarting {{{AnyCoin}}}.</translation>
+        <translation>The user interface language can be set here. This setting will take effect after restarting ___AnyCoin___.</translation>
     </message>
     <message>
         <location line="+11"/>
@@ -1482,7 +1482,7 @@ Address: %4
         <location line="+53"/>
         <location line="+372"/>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the {{{AnyCoin}}} network after a connection is established, but this process has not completed yet.</translation>
+        <translation>The displayed information may be out of date. Your wallet automatically synchronizes with the ___AnyCoin___ network after a connection is established, but this process has not completed yet.</translation>
     </message>
     <message>
         <location line="-133"/>
@@ -1625,7 +1625,7 @@ Address: %4
     <message>
         <location line="-382"/>
         <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation>Cannot start {{{AnyCoin}}}: click-to-pay handler</translation>
+        <translation>Cannot start ___AnyCoin___: click-to-pay handler</translation>
     </message>
     <message>
         <location line="+105"/>
@@ -1635,7 +1635,7 @@ Address: %4
     <message>
         <location line="+21"/>
         <source>URI cannot be parsed! This can be caused by an invalid Bitcoin address or malformed URI parameters.</source>
-        <translation>URI cannot be parsed! This can be caused by an invalid {{{AnyCoin}}} address or malformed URI parameters.</translation>
+        <translation>URI cannot be parsed! This can be caused by an invalid ___AnyCoin___ address or malformed URI parameters.</translation>
     </message>
     <message>
         <location line="+13"/>
@@ -1711,7 +1711,7 @@ Address: %4
     <message>
         <location filename="../guiutil.cpp" line="+106"/>
         <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation>Enter a {{{AnyCoin}}} address (e.g. %1)</translation>
+        <translation>Enter a ___AnyCoin___ address (e.g. %1)</translation>
     </message>
     <message>
         <location line="+698"/>
@@ -2016,7 +2016,7 @@ Address: %4
     <message>
         <location line="+7"/>
         <source>Open the Bitcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>Open the {{{AnyCoin}}} debug log file from the current data directory. This can take a few seconds for large log files.</translation>
+        <translation>Open the ___AnyCoin___ debug log file from the current data directory. This can take a few seconds for large log files.</translation>
     </message>
     <message>
         <location line="+76"/>
@@ -2026,7 +2026,7 @@ Address: %4
     <message>
         <location filename="../rpcconsole.cpp" line="-35"/>
         <source>Welcome to the Bitcoin RPC console.</source>
-        <translation>Welcome to the {{{AnyCoin}}} RPC console.</translation>
+        <translation>Welcome to the ___AnyCoin___ RPC console.</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2122,7 +2122,7 @@ Address: %4
         <location line="+14"/>
         <location line="+23"/>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
-        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the {{{AnyCoin}}} network.</translation>
+        <translation>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the ___AnyCoin___ network.</translation>
     </message>
     <message>
         <location line="-7"/>
@@ -2512,7 +2512,7 @@ Address: %4
     <message>
         <location line="+113"/>
         <source>Warning: Invalid Bitcoin address</source>
-        <translation>Warning: Invalid {{{AnyCoin}}} address</translation>
+        <translation>Warning: Invalid ___AnyCoin___ address</translation>
     </message>
     <message>
         <location line="+20"/>
@@ -2577,7 +2577,7 @@ Address: %4
     <message>
         <location line="+33"/>
         <source>The Bitcoin address to send the payment to</source>
-        <translation>The {{{AnyCoin}}} address to send the payment to</translation>
+        <translation>The ___AnyCoin___ address to send the payment to</translation>
     </message>
     <message>
         <location line="+17"/>
@@ -2619,7 +2619,7 @@ Address: %4
     <message>
         <location line="+33"/>
         <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
-        <translation>A message that was attached to the {{{AnyCoin}}}: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the {{{AnyCoin}}} network.</translation>
+        <translation>A message that was attached to the ___AnyCoin___: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the ___AnyCoin___ network.</translation>
     </message>
     <message>
         <location line="+426"/>
@@ -2644,7 +2644,7 @@ Address: %4
     <message>
         <location filename="../utilitydialog.cpp" line="+47"/>
         <source>Bitcoin Core is shutting down...</source>
-        <translation>{{{AnyCoin}}} Core is shutting down...</translation>
+        <translation>___AnyCoin___ Core is shutting down...</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -2672,7 +2672,7 @@ Address: %4
     <message>
         <location line="+18"/>
         <source>The Bitcoin address to sign the message with</source>
-        <translation>The {{{AnyCoin}}} address to sign the message with</translation>
+        <translation>The ___AnyCoin___ address to sign the message with</translation>
     </message>
     <message>
         <location line="+7"/>
@@ -2714,7 +2714,7 @@ Address: %4
     <message>
         <location line="+21"/>
         <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>Sign the message to prove you own this {{{AnyCoin}}} address</translation>
+        <translation>Sign the message to prove you own this ___AnyCoin___ address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2745,12 +2745,12 @@ Address: %4
     <message>
         <location line="+21"/>
         <source>The Bitcoin address the message was signed with</source>
-        <translation>The {{{AnyCoin}}} address the message was signed with</translation>
+        <translation>The ___AnyCoin___ address the message was signed with</translation>
     </message>
     <message>
         <location line="+37"/>
         <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>Verify the message to ensure it was signed with the specified {{{AnyCoin}}} address</translation>
+        <translation>Verify the message to ensure it was signed with the specified ___AnyCoin___ address</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -2839,12 +2839,12 @@ Address: %4
     <message>
         <location filename="../splashscreen.cpp" line="+35"/>
         <source>Bitcoin Core</source>
-        <translation>{{{AnyCoin}}} Core</translation>
+        <translation>___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+2"/>
         <source>The Bitcoin Core developers</source>
-        <translation>The {{{AnyCoin}}} Core developers</translation>
+        <translation>The ___AnyCoin___ Core developers</translation>
     </message>
     <message>
         <location filename="../networkstyle.cpp" line="+19"/>
@@ -3524,13 +3524,13 @@ for example: alertnotify=echo %%s | mail -s &quot;Bitcoin Alert&quot; admin@foo.
         <translation>%s, you must set a rpcpassword in the configuration file:
 %s
 It is recommended you use the following random password:
-rpcuser={{{AnyCoin}}}rpc
+rpcuser=___AnyCoin___rpc
 rpcpassword=%s
 (you do not need to remember this password)
 The username and password MUST NOT be the same.
 If the file does not exist, create it with owner-readable-only file permissions.
 It is also recommended to set alertnotify so you are notified of problems;
-for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admin@foo.com
+for example: alertnotify=echo %%s | mail -s &quot;___AnyCoin___ Alert&quot; admin@foo.com
 </translation>
     </message>
     <message>
@@ -3581,7 +3581,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+7"/>
         <source>Unable to bind to %s on this computer. Bitcoin Core is probably already running.</source>
-        <translation>Unable to bind to %s on this computer. {{{AnyCoin}}} Core is probably already running.</translation>
+        <translation>Unable to bind to %s on this computer. ___AnyCoin___ Core is probably already running.</translation>
     </message>
     <message>
         <location line="+6"/>
@@ -3821,7 +3821,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+4"/>
         <source>Cannot obtain a lock on data directory %s. Bitcoin Core is probably already running.</source>
-        <translation>Cannot obtain a lock on data directory %s. {{{AnyCoin}}} Core is probably already running.</translation>
+        <translation>Cannot obtain a lock on data directory %s. ___AnyCoin___ Core is probably already running.</translation>
     </message>
     <message>
         <location line="+3"/>
@@ -3881,7 +3881,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+13"/>
         <source>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong Bitcoin Core will not work properly.</source>
-        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong {{{AnyCoin}}} Core will not work properly.</translation>
+        <translation>Warning: Please check that your computer&apos;s date and time are correct! If your clock is wrong ___AnyCoin___ Core will not work properly.</translation>
     </message>
     <message>
         <location line="+19"/>
@@ -3901,7 +3901,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+3"/>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
-        <translation>Copyright (C) 2009-%i The {{{AnyCoin}}} Core Developers</translation>
+        <translation>Copyright (C) 2009-%i The ___AnyCoin___ Core Developers</translation>
     </message>
     <message>
         <location line="+2"/>
@@ -3911,7 +3911,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+12"/>
         <source>Error loading wallet.dat: Wallet requires newer version of Bitcoin Core</source>
-        <translation>Error loading wallet.dat: Wallet requires newer version of {{{AnyCoin}}} Core</translation>
+        <translation>Error loading wallet.dat: Wallet requires newer version of ___AnyCoin___ Core</translation>
     </message>
     <message>
         <location line="+5"/>
@@ -3931,7 +3931,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+1"/>
         <source>Initialization sanity check failed. Bitcoin Core is shutting down.</source>
-        <translation>Initialization sanity check failed. {{{AnyCoin}}} Core is shutting down.</translation>
+        <translation>Initialization sanity check failed. ___AnyCoin___ Core is shutting down.</translation>
     </message>
     <message>
         <location line="+4"/>
@@ -3981,7 +3981,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+2"/>
         <source>RPC SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation>RPC SSL options: (see the {{{AnyCoin}}} Wiki for SSL setup instructions)</translation>
+        <translation>RPC SSL options: (see the ___AnyCoin___ Wiki for SSL setup instructions)</translation>
     </message>
     <message>
         <location line="+1"/>
@@ -4056,7 +4056,7 @@ for example: alertnotify=echo %%s | mail -s &quot;{{{AnyCoin}}} Alert&quot; admi
     <message>
         <location line="+4"/>
         <source>Wallet needed to be rewritten: restart Bitcoin Core to complete</source>
-        <translation>Wallet needed to be rewritten: restart {{{AnyCoin}}} Core to complete</translation>
+        <translation>Wallet needed to be rewritten: restart ___AnyCoin___ Core to complete</translation>
     </message>
     <message>
         <location line="+2"/>
