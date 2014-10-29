@@ -7,7 +7,7 @@ PACKAGES="nsis gcc-mingw-w64-i686 g++-mingw-w64-i686 binutils-mingw-w64-i686 min
 RUN_TESTS=true 
 GOAL="deploy"
 
-sudo echo deb http://us.archive.ubuntu.com/ubuntu precise main universe >> /etc/apt/sources.list
+#echo deb http://us.archive.ubuntu.com/ubuntu precise main universe >> /etc/apt/sources.list
 
 if [ -n "$PACKAGES" ]; then sudo apt-get update; fi
 
