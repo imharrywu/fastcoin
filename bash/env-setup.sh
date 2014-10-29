@@ -8,6 +8,7 @@ RUN_TESTS=true
 GOAL="deploy"
 
 #echo deb http://us.archive.ubuntu.com/ubuntu precise main universe >> /etc/apt/sources.list
+#sudo apt-get install build-essential
 
 if [ -n "$PACKAGES" ]; then sudo apt-get update; fi
 
