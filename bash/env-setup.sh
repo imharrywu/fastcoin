@@ -1,17 +1,17 @@
 #!/bin/bash
 
 #For now, we assume that we are using ubuntu x86_64 distribution.
-
-HOST=i686-w64-mingw32 
 PACKAGES="nsis gcc-mingw-w64-i686 g++-mingw-w64-i686 binutils-mingw-w64-i686 mingw-w64-dev wine" 
-RUN_TESTS=true 
-GOAL="deploy"
 
-#echo deb http://us.archive.ubuntu.com/ubuntu precise main universe >> /etc/apt/sources.list
-#sudo apt-get install build-essential
+ADDSOURCE="deb http://us.archive.ubuntu.com/ubuntu precise main universe"
+SOURCES_LIST="/etc/apt/sources.list"
+TESTADDED=$(grep $ADDSOURCE $SOURCES_LIST)
+if [ -z "$TESTADDED" ] ; then 
+	sudo bash -c "echo $ADDSOURCE >> $SOURCES_LIST"
+fi
 
 if [ -n "$PACKAGES" ]; then sudo apt-get update; fi
 
-if [ -n "$PACKAGES" ]; then sudo apt-get install --no-upgrade $PACKAGES; fi
+if [ -n "$PACKAGES" ]; then sudo apt-get install --no-upgrade -qq $PACKAGES; fi
 
-
+sudo apt-get install build-essential autoconf libtool
