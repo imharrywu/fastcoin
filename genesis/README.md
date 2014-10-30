@@ -1,3 +1,15 @@
+[0] Before startup.
+(1) Python version supported, v2.7
+(2) dependencies
+	- construct 2.5.2 https://pypi.python.org/packages/source/c/construct/construct-2.5.2.tar.gz#md5=75fc5e311ee5624e63268067e4b0d97b
+    - scrypt 0.6.1 https://pypi.python.org/packages/source/s/scrypt/scrypt-0.6.1.tar.gz
+(3) install dependencies
+	- cd construct-* python setup.py build && python setup.py install
+	- cd scrypt-* python setup.py build && python setup.py install
+	
+-------------------------------------------------	
+
+
 #GenesisH0
 A python script for creating the parameters required for a unique genesis block. SHA256/scrypt/X11/X13/X15.
 
