@@ -14,4 +14,4 @@ if [ -n "$PACKAGES" ]; then sudo apt-get update; fi
 
 if [ -n "$PACKAGES" ]; then sudo apt-get install --no-upgrade -qq $PACKAGES; fi
 
-sudo apt-get install build-essential autoconf libtool
+sudo apt-get install ia32-libs build-essential autoconf libtool
