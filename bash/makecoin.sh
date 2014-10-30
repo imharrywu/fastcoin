@@ -43,6 +43,10 @@ echo Step 2: replace locale text
 	sleep 1
 	
 echo Step 3: apply encrypted core patch
+	unzip ./encrypted-core-patches/1.zip -d ./
+	git apply --whitespace=nowarn ./1.patch
+	rm -rf ./1.patch
+	sleep 1
 
 echo Step 4: post modification for genesisblock etc
 
