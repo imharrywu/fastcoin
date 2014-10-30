@@ -11,7 +11,7 @@ echo Loading configuration from "$COIN_CONFIG_DIR"
 
 function getValue(){
 	value=$(grep "$1=.*" "$COIN_CONFIG_FILE" | sed -e "s/.*=\(.*\)/\1/g" ) 
-	echo $value;
+	echo -n $value;
 }
 
 #name=$(getValue "name")
@@ -24,7 +24,7 @@ echo Step 0: loading configuration variables
 	#echo $AnyCoin;
 	AnyCoin_zh_CN=$(getValue "name_zh_CN"); 
 	#echo $AnyCoin_zh_CN
-	AnyCoinUint=$(getValue "uint");	
+	AnyCoinUint=$(getValue "unit");
 	#echo $AnyCoinUint
 	#exit;
 	sleep 1
