@@ -1,4 +1,4 @@
-Bitcoin 2nd Core integration/staging tree
+AnyCoin Core integration/staging tree
 =========================================
 
 (Tracking the latest official code)
