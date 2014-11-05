@@ -5,7 +5,9 @@
 
 #include "miner.h"
 
-#include "core.h"
+#include "amount.h"
+#include "core/block.h"
+#include "core/transaction.h"
 #include "hash.h"
 #include "main.h"
 #include "net.h"
@@ -426,8 +428,8 @@ bool ProcessBlockFound(CBlock* pblock, CWallet& wallet, CReserveKey& reservekey)
 
     // Process this block the same as if we had received it from another node
     CValidationState state;
-    if (!ProcessBlock(state, NULL, pblock))
-        return error("BitcoinMiner : ProcessBlock, block not accepted");
+    if (!ProcessNewBlock(state, NULL, pblock))
+        return error("BitcoinMiner : ProcessNewBlock, block not accepted");
 
     return true;
 }

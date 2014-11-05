@@ -10,6 +10,7 @@
 #include "init.h"
 
 #include "addrman.h"
+#include "amount.h"
 #include "checkpoints.h"
 #include "compat/sanity.h"
 #include "key.h"
@@ -17,6 +18,7 @@
 #include "miner.h"
 #include "net.h"
 #include "rpcserver.h"
+#include "script/standard.h"
 #include "txdb.h"
 #include "ui_interface.h"
 #include "util.h"
@@ -345,6 +347,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
     strUsage += "\n" + _("Node relay options:") + "\n";
     strUsage += "  -datacarrier           " + strprintf(_("Relay and mine data carrier transactions (default: %u)"), 1) + "\n";
+    strUsage += "  -datacarriersize       " + strprintf(_("Maximum size of data in data carrier transactions we relay and mine (default: %u)"), MAX_OP_RETURN_RELAY) + "\n";
 
     strUsage += "\n" + _("Block creation options:") + "\n";
     strUsage += "  -blockminsize=<n>      " + strprintf(_("Set minimum block size in bytes (default: %u)"), 0) + "\n";
@@ -547,6 +550,10 @@ bool AppInit2(boost::thread_group& threadGroup)
 #endif
 
     // ********************************************************* Step 2: parameter interactions
+    // Set this early so that parameter interactions go to console
+    fPrintToConsole = GetBoolArg("-printtoconsole", false);
+    fLogTimestamps = GetBoolArg("-logtimestamps", true);
+    fLogIPs = GetBoolArg("-logips", false);
 
     if (mapArgs.count("-bind") || mapArgs.count("-whitebind")) {
         // when specifying an explicit binding address, you want to listen on it
@@ -640,9 +647,6 @@ bool AppInit2(boost::thread_group& threadGroup)
         nScriptCheckThreads = MAX_SCRIPTCHECK_THREADS;
 
     fServer = GetBoolArg("-server", false);
-    fPrintToConsole = GetBoolArg("-printtoconsole", false);
-    fLogTimestamps = GetBoolArg("-logtimestamps", true);
-    fLogIPs = GetBoolArg("-logips", false);
 #ifdef ENABLE_WALLET
     bool fDisableWallet = GetBoolArg("-disablewallet", false);
 #endif
@@ -702,6 +706,7 @@ bool AppInit2(boost::thread_group& threadGroup)
 #endif // ENABLE_WALLET
 
     fIsBareMultisigStd = GetArg("-permitbaremultisig", true) != 0;
+    nMaxDatacarrierBytes = GetArg("-datacarriersize", nMaxDatacarrierBytes);
 
     // ********************************************************* Step 4: application initialization: dir lock, daemonize, pidfile, debug log
 
@@ -745,6 +750,17 @@ bool AppInit2(boost::thread_group& threadGroup)
         LogPrintf("Using %u threads for script verification\n", nScriptCheckThreads);
         for (int i=0; i<nScriptCheckThreads-1; i++)
             threadGroup.create_thread(&ThreadScriptCheck);
+    }
+
+    /* Start the RPC server already.  It will be started in "warmup" mode
+     * and not really process calls already (but it will signify connections
+     * that the server is there and will be ready later).  Warmup mode will
+     * be disabled when initialisation is finished.
+     */
+    if (fServer)
+    {
+        uiInterface.InitMessage.connect(SetRPCWarmupStatus);
+        StartRPCThreads();
     }
 
     int64_t nStart;
@@ -1243,8 +1259,6 @@ bool AppInit2(boost::thread_group& threadGroup)
 #endif
 
     StartNode(threadGroup);
-    if (fServer)
-        StartRPCThreads();
 
 #ifdef ENABLE_WALLET
     // Generate coins in the background
@@ -1254,6 +1268,7 @@ bool AppInit2(boost::thread_group& threadGroup)
 
     // ********************************************************* Step 11: finished
 
+    SetRPCWarmupFinished();
     uiInterface.InitMessage(_("Done loading"));
 
 #ifdef ENABLE_WALLET

@@ -4,6 +4,7 @@
 
 #include "main.h"
 #include "miner.h"
+#include "pubkey.h"
 #include "uint256.h"
 #include "util.h"
 
@@ -79,7 +80,7 @@ BOOST_AUTO_TEST_CASE(CreateNewBlock_validity)
         pblock->hashMerkleRoot = pblock->BuildMerkleTree();
         pblock->nNonce = blockinfo[i].nonce;
         CValidationState state;
-        BOOST_CHECK(ProcessBlock(state, NULL, pblock));
+        BOOST_CHECK(ProcessNewBlock(state, NULL, pblock));
         BOOST_CHECK(state.IsValid());
         pblock->hashPrevBlock = pblock->GetHash();
     }

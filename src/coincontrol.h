@@ -2,10 +2,10 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef COINCONTROL_H
-#define COINCONTROL_H
+#ifndef BITCOIN_COINCONTROL_H
+#define BITCOIN_COINCONTROL_H
 
-#include "core.h"
+#include "core/transaction.h"
 
 /** Coin Control Features. */
 class CCoinControl
@@ -59,4 +59,4 @@ private:
     std::set<COutPoint> setSelected;
 };
 
-#endif // COINCONTROL_H
+#endif // BITCOIN_COINCONTROL_H

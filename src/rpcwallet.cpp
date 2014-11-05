@@ -3,6 +3,7 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
+#include "amount.h"
 #include "base58.h"
 #include "core_io.h"
 #include "rpcserver.h"
@@ -313,7 +314,7 @@ Value sendtoaddress(const Array& params, bool fHelp)
     if (fHelp || params.size() < 2 || params.size() > 4)
         throw runtime_error(
             "sendtoaddress \"bitcoinaddress\" amount ( \"comment\" \"comment-to\" )\n"
-            "\nSent an amount to a given address. The amount is a real and is rounded to the nearest 0.00000001\n"
+            "\nSend an amount to a given address. The amount is a real and is rounded to the nearest 0.00000001\n"
             + HelpRequiringPassphrase() +
             "\nArguments:\n"
             "1. \"bitcoinaddress\"  (string, required) The bitcoin address to send to.\n"

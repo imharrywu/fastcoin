@@ -128,6 +128,8 @@ namespace {
     };
     map<uint256, pair<NodeId, list<QueuedBlock>::iterator> > mapBlocksInFlight;
 
+    // Number of preferrable block download peers.
+    int nPreferredDownload = 0;
 } // anon namespace
 
 //////////////////////////////////////////////////////////////////////////////
@@ -152,6 +154,8 @@ struct CMainSignals {
     boost::signals2::signal<void (const uint256 &)> Inventory;
     // Tells listeners to broadcast their data.
     boost::signals2::signal<void ()> Broadcast;
+    // Notifies listeners of a block validation result
+    boost::signals2::signal<void (const CBlock&, const CValidationState&)> BlockChecked;
 } g_signals;
 
 } // anon namespace
@@ -163,9 +167,11 @@ void RegisterValidationInterface(CValidationInterface* pwalletIn) {
     g_signals.SetBestChain.connect(boost::bind(&CValidationInterface::SetBestChain, pwalletIn, _1));
     g_signals.Inventory.connect(boost::bind(&CValidationInterface::Inventory, pwalletIn, _1));
     g_signals.Broadcast.connect(boost::bind(&CValidationInterface::ResendWalletTransactions, pwalletIn));
+    g_signals.BlockChecked.connect(boost::bind(&CValidationInterface::BlockChecked, pwalletIn, _1, _2));
 }
 
 void UnregisterValidationInterface(CValidationInterface* pwalletIn) {
+    g_signals.BlockChecked.disconnect(boost::bind(&CValidationInterface::BlockChecked, pwalletIn, _1, _2));
     g_signals.Broadcast.disconnect(boost::bind(&CValidationInterface::ResendWalletTransactions, pwalletIn));
     g_signals.Inventory.disconnect(boost::bind(&CValidationInterface::Inventory, pwalletIn, _1));
     g_signals.SetBestChain.disconnect(boost::bind(&CValidationInterface::SetBestChain, pwalletIn, _1));
@@ -175,6 +181,7 @@ void UnregisterValidationInterface(CValidationInterface* pwalletIn) {
 }
 
 void UnregisterAllValidationInterfaces() {
+    g_signals.BlockChecked.disconnect_all_slots();
     g_signals.Broadcast.disconnect_all_slots();
     g_signals.Inventory.disconnect_all_slots();
     g_signals.SetBestChain.disconnect_all_slots();
@@ -225,6 +232,8 @@ struct CNodeState {
     int64_t nStallingSince;
     list<QueuedBlock> vBlocksInFlight;
     int nBlocksInFlight;
+    // Whether we consider this a preferred download peer.
+    bool fPreferredDownload;
 
     CNodeState() {
         nMisbehavior = 0;
@@ -235,6 +244,7 @@ struct CNodeState {
         fSyncStarted = false;
         nStallingSince = 0;
         nBlocksInFlight = 0;
+        fPreferredDownload = false;
     }
 };
 
@@ -255,6 +265,16 @@ int GetHeight()
     return chainActive.Height();
 }
 
+void UpdatePreferredDownload(CNode* node, CNodeState* state)
+{
+    nPreferredDownload -= state->fPreferredDownload;
+
+    // Whether this node should be marked as a preferred download node.
+    state->fPreferredDownload = (!node->fInbound || node->fWhitelisted) && !node->fOneShot && !node->fClient;
+
+    nPreferredDownload += state->fPreferredDownload;
+}
+
 void InitializeNode(NodeId nodeid, const CNode *pnode) {
     LOCK(cs_main);
     CNodeState &state = mapNodeState.insert(std::make_pair(nodeid, CNodeState())).first->second;
@@ -271,6 +291,7 @@ void FinalizeNode(NodeId nodeid) {
     BOOST_FOREACH(const QueuedBlock& entry, state->vBlocksInFlight)
         mapBlocksInFlight.erase(entry.hash);
     EraseOrphansFor(nodeid);
+    nPreferredDownload -= state->fPreferredDownload;
 
     mapNodeState.erase(nodeid);
 }
@@ -631,10 +652,6 @@ bool IsStandardTx(const CTransaction& tx, string& reason)
         }
         if (!txin.scriptSig.IsPushOnly()) {
             reason = "scriptsig-not-pushonly";
-            return false;
-        }
-        if (!txin.scriptSig.HasCanonicalPushes()) {
-            reason = "scriptsig-non-canonical-push";
             return false;
         }
     }
@@ -1868,7 +1885,9 @@ bool static ConnectTip(CValidationState &state, CBlockIndex *pindexNew, CBlock *
     {
         CCoinsViewCache view(pcoinsTip);
         CInv inv(MSG_BLOCK, pindexNew->GetBlockHash());
-        if (!ConnectBlock(*pblock, state, pindexNew, view)) {
+        bool rv = ConnectBlock(*pblock, state, pindexNew, view);
+        g_signals.BlockChecked(*pblock, state);
+        if (!rv) {
             if (state.IsInvalid())
                 InvalidBlockFound(pindexNew, state);
             return error("ConnectTip() : ConnectBlock %s failed", pindexNew->GetBlockHash().ToString());
@@ -2508,7 +2527,7 @@ void CBlockIndex::BuildSkip()
         pskip = pprev->GetAncestor(GetSkipHeight(nHeight));
 }
 
-bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBlockPos *dbp)
+bool ProcessNewBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBlockPos *dbp)
 {
     // Preliminary checks
     bool checked = CheckBlock(*pblock, state);
@@ -2517,7 +2536,7 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
         LOCK(cs_main);
         MarkBlockAsReceived(pblock->GetHash());
         if (!checked) {
-            return error("ProcessBlock() : CheckBlock FAILED");
+            return error("%s : CheckBlock FAILED", __func__);
         }
 
         // Store to disk
@@ -2527,11 +2546,11 @@ bool ProcessBlock(CValidationState &state, CNode* pfrom, CBlock* pblock, CDiskBl
             mapBlockSource[pindex->GetBlockHash()] = pfrom->GetId();
         }
         if (!ret)
-            return error("ProcessBlock() : AcceptBlock FAILED");
+            return error("%s : AcceptBlock FAILED", __func__);
     }
 
     if (!ActivateBestChain(state, pblock))
-        return error("ProcessBlock() : ActivateBestChain failed");
+        return error("%s : ActivateBestChain failed", __func__);
 
     return true;
 }
@@ -3140,7 +3159,7 @@ bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
                 // process in case the block isn't known yet
                 if (mapBlockIndex.count(hash) == 0) {
                     CValidationState state;
-                    if (ProcessBlock(state, NULL, &block, dbp))
+                    if (ProcessNewBlock(state, NULL, &block, dbp))
                         nLoaded++;
                     if (state.IsError())
                         break;
@@ -3160,7 +3179,7 @@ bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
                             LogPrintf("%s: Processing out of order child %s of %s\n", __func__, block.GetHash().ToString(),
                                     head.ToString());
                             CValidationState dummy;
-                            if (ProcessBlock(dummy, NULL, &block, &it->second))
+                            if (ProcessNewBlock(dummy, NULL, &block, &it->second))
                             {
                                 nLoaded++;
                                 queue.push_back(block.GetHash());
@@ -3475,6 +3494,8 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
 
         pfrom->fClient = !(pfrom->nServices & NODE_NETWORK);
 
+        // Potentially mark this peer as a preferred download peer.
+        UpdatePreferredDownload(pfrom, State(pfrom->GetId()));
 
         // Change version
         pfrom->PushMessage("verack");
@@ -3938,7 +3959,7 @@ bool static ProcessMessage(CNode* pfrom, string strCommand, CDataStream& vRecv, 
         pfrom->AddInventoryKnown(inv);
 
         CValidationState state;
-        ProcessBlock(state, pfrom, &block);
+        ProcessNewBlock(state, pfrom, &block);
         int nDoS;
         if (state.IsInvalid(nDoS)) {
             pfrom->PushMessage("reject", strCommand, state.GetRejectCode(),
@@ -4419,7 +4440,7 @@ bool SendMessages(CNode* pto, bool fSendTrickle)
         // Start block sync
         if (pindexBestHeader == NULL)
             pindexBestHeader = chainActive.Tip();
-        bool fFetch = !pto->fInbound || (pindexBestHeader && (state.pindexLastCommonBlock ? state.pindexLastCommonBlock->nHeight : 0) + 144 > pindexBestHeader->nHeight);
+        bool fFetch = state.fPreferredDownload || (nPreferredDownload == 0 && !pto->fClient && !pto->fOneShot); // Download if this is a nice peer, or we have no nice peers and this one might do.
         if (!state.fSyncStarted && !pto->fClient && fFetch && !fImporting && !fReindex) {
             // Only actively request headers from a single peer, unless we're close to today.
             if (nSyncStarted == 0 || pindexBestHeader->GetBlockTime() > GetAdjustedTime() - 24 * 60 * 60) {

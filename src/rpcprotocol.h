@@ -3,8 +3,8 @@
 // Distributed under the MIT/X11 software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
-#ifndef _BITCOINRPC_PROTOCOL_H_
-#define _BITCOINRPC_PROTOCOL_H_
+#ifndef BITCOIN_RPCPROTOCOL_H
+#define BITCOIN_RPCPROTOCOL_H
 
 #include <list>
 #include <map>
@@ -49,9 +49,15 @@ enum RPCErrorCode
     RPC_INVALID_PARAMETER           = -8,  // Invalid, missing or duplicate parameter
     RPC_DATABASE_ERROR              = -20, // Database error
     RPC_DESERIALIZATION_ERROR       = -22, // Error parsing or validating structure in raw format
-    RPC_TRANSACTION_ERROR           = -25, // General error during transaction submission
-    RPC_TRANSACTION_REJECTED        = -26, // Transaction was rejected by network rules
-    RPC_TRANSACTION_ALREADY_IN_CHAIN= -27, // Transaction already in chain
+    RPC_VERIFY_ERROR                = -25, // General error during transaction or block submission
+    RPC_VERIFY_REJECTED             = -26, // Transaction or block was rejected by network rules
+    RPC_VERIFY_ALREADY_IN_CHAIN     = -27, // Transaction already in chain
+    RPC_IN_WARMUP                   = -28, // Client still warming up
+
+    // Aliases for backward compatibility
+    RPC_TRANSACTION_ERROR           = RPC_VERIFY_ERROR,
+    RPC_TRANSACTION_REJECTED        = RPC_VERIFY_REJECTED,
+    RPC_TRANSACTION_ALREADY_IN_CHAIN= RPC_VERIFY_ALREADY_IN_CHAIN,
 
     // P2P client errors
     RPC_CLIENT_NOT_CONNECTED        = -9,  // Bitcoin is not connected
@@ -159,4 +165,4 @@ json_spirit::Object JSONRPCReplyObj(const json_spirit::Value& result, const json
 std::string JSONRPCReply(const json_spirit::Value& result, const json_spirit::Value& error, const json_spirit::Value& id);
 json_spirit::Object JSONRPCError(int code, const std::string& message);
 
-#endif // _BITCOINRPC_PROTOCOL_H_
+#endif // BITCOIN_RPCPROTOCOL_H

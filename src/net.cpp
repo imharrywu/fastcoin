@@ -11,7 +11,8 @@
 
 #include "addrman.h"
 #include "chainparams.h"
-#include "core.h"
+#include "clientversion.h"
+#include "core/transaction.h"
 #include "ui_interface.h"
 
 #ifdef WIN32
