@@ -63,7 +63,7 @@ script:
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
     - ./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
     # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
-    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then COIN_CONFIG_DIR=$(pwd)/$MODEL UNZIP_PASSPHRASE=$PATCH_PASSPHRASE sh bash/makecoin.sh; fi
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then COIN_CONFIG_DIR=$(pwd)/model/$MODEL UNZIP_PASSPHRASE=$PATCH_PASSPHRASE sh bash/makecoin.sh; fi
     # ### DONE  ###
     - make distdir PACKAGE=bitcoin VERSION=$HOST
     - cd bitcoin-$HOST
