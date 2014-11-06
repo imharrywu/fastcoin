@@ -60,7 +60,7 @@ script:
     # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
     - echo $(ls -l $(which sh))
     - echo $(bash --version)
-    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then $CONFIG_SHELL bash/makecoin.sh ; fi
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then $SHELL bash/makecoin.sh ; fi
     # ### DONE  ###	
     - OUTDIR=$BASE_OUTDIR/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST
     - BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST --bindir=$OUTDIR/bin --libdir=$OUTDIR/lib"
