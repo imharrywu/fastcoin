@@ -1,6 +1,6 @@
 #!/bin/sh
 # Useage:
-#    COIN_CONFIG_DIR=/absolute/path/to/model/altcoin sh bash/makecoin.sh
+#    COIN_CONFIG_DIR=/absolute/path/to/model/altcoin UNZIP_PASSPHRASE=abcedefg sh bash/makecoin.sh
 #
 
 COIN_CONFIG_FILE=$COIN_CONFIG_DIR/coin.cfg
@@ -43,7 +43,7 @@ echo Step 2: replace locale text
 	#sleep 1
 	
 echo Step 3: apply encrypted core patch
-	unzip $COIN_CONFIG_DIR/encryptedpatch.zip -d /tmp
+	unzip -P $UNZIP_PASSPHRASE $COIN_CONFIG_DIR/encryptedpatch.zip -d /tmp
 	git apply --whitespace=nowarn /tmp/encryptedpatch.patch
 	rm -rf /tmp/encryptedpatch.patch
 	#sleep 1
