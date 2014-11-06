@@ -16,6 +16,7 @@ env:
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
     #- SDK_URL=https://bitcoincore.org/depends-sources/sdks
     - MODEL=freecoin
+    - COIN_CONFIG_DIR=$(pwd)/model/$MODEL	
     #- SCP_DESTINATION=someone@someone.net:/home/someone/tarballs
     - secure: "KJ0KYZnEHl1mejooQl7VNgR2nbI8WfEfOo1BeZ+JaaXf5Wd7VhXdQ0iyoZITodAbpUMWYCda5k3m5GyABT7fNg8jR6paHAuuur3s2+MUcQPGHMPoVQskKmGDBkn4qJtSiH9oUcn0LNuU6OmYXVaqYRlyG9NrhQgyyhwgkZgPkdc="
     #- SCP_PASSPHRASE="you can NOT known it!"
@@ -56,22 +57,30 @@ before_script:
     - make $MAKEJOBS -C depends HOST=$HOST $DEP_OPTS || (echo "Build failure. Verbose build follows." && make -C depends V=1 HOST=$HOST $DEP_OPTS)
 script:
     - if [ -n "$USE_SHELL" ]; then export CONFIG_SHELL="$USE_SHELL"; fi
+    # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
+    - echo $(ls -l $(which sh))
+    - echo $(bash --version)
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then $CONFIG_SHELL bash/makecoin.sh ; fi
+    # ### DONE  ###	
     - OUTDIR=$BASE_OUTDIR/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST
     - BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST --bindir=$OUTDIR/bin --libdir=$OUTDIR/lib"
     - depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE
     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export CCACHE_READONLY=1; fi
+    # Step [1]: autogen.sh
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
+    # Step [2]: first roll configure	
     - ./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
-    # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
-    - echo $(ls -l $(which sh))
-    - echo $(bash --version)
-    #- if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then COIN_CONFIG_DIR=$(pwd)/model/$MODEL UNZIP_PASSPHRASE=$PATCH_PASSPHRASE bash bash/makecoin.sh ; fi
-    # ### DONE  ###
+    # Step [3]: make build directory
     - make distdir PACKAGE=bitcoin VERSION=$HOST
+    # Step [4]: goto build directory
     - cd bitcoin-$HOST
+    # Step [5]: second roll configure in build directory
     - ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
+    # Step [6]: make 
     - make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && make $GOAL V=1 ; false )
+    # Step [7]: make check
     - if [ "$RUN_TESTS" = "true" ]; then make check; fi
+    # Step [8]: make rpc call check
     - if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
     - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then tar czf /tmp/result.tar.gz $BASE_OUTDIR ; sshpass -p "$SCP_PASSPHRASE" scp -o "StrictHostKeyChecking no" /tmp/result.tar.gz "$SCP_DESTINATION" ; rm -rf /tmp/result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done"; fi
