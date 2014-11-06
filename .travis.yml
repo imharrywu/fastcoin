@@ -16,7 +16,7 @@ env:
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
     #- SDK_URL=https://bitcoincore.org/depends-sources/sdks
     - MODEL=freecoin
-    - COIN_CONFIG_DIR=$(pwd)/model/$MODEL
+    - COIN_CONFIG_DIR=$TRAVIS_BUILD_DIR/model/$MODEL
     #- SCP_DESTINATION=someone@someone.net:/home/someone/tarballs
     - secure: "KJ0KYZnEHl1mejooQl7VNgR2nbI8WfEfOo1BeZ+JaaXf5Wd7VhXdQ0iyoZITodAbpUMWYCda5k3m5GyABT7fNg8jR6paHAuuur3s2+MUcQPGHMPoVQskKmGDBkn4qJtSiH9oUcn0LNuU6OmYXVaqYRlyG9NrhQgyyhwgkZgPkdc="
     #- SCP_PASSPHRASE="you can NOT known it!"
