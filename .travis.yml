@@ -15,6 +15,12 @@ env:
     - CCACHE_COMPRESS=1
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
     #- SDK_URL=https://bitcoincore.org/depends-sources/sdks
+    #- SCP_DESTINATION=someone@someone.net:/home/someone/tarballs
+    - secure: "KJ0KYZnEHl1mejooQl7VNgR2nbI8WfEfOo1BeZ+JaaXf5Wd7VhXdQ0iyoZITodAbpUMWYCda5k3m5GyABT7fNg8jR6paHAuuur3s2+MUcQPGHMPoVQskKmGDBkn4qJtSiH9oUcn0LNuU6OmYXVaqYRlyG9NrhQgyyhwgkZgPkdc="
+    #- SCP_PASSPHRASE="you can NOT known it!"
+    - secure: "gTgRRTsgNFH0VvGsFJ9qoMzx5kB6sPdSwssEZJk1SAFEL7lmhCwquymAOK8QouFb9VxJvPenPxK28f/dPSI60/gijNScQBS8YWN5bQdBYncO/n2w93oscRXzEKd4dzwykD4H9rWw6dOmSHi4zaaT8z5rL5IbZbTpIP6j2yLHiX4="	
+    #- PATCH_PASSPHRASE="very secure passphrase"
+    - secure: "c2DLcb/z3YLM45PhzBahbf+buR7keM1+JvcWpSmj4p2JQobH4bERmJY5hff9dGq2TwulijrRmrB/mV7skwWuEVrGZSO/v0c1ENERPh/RjGhG35smVevPBL/itBWNzTnoyLAm4e0th+ps1/FcD1UBP3XRBoeEFO9NluDUSvGavTs="
 cache:
   apt: true
   directories:
@@ -37,7 +43,7 @@ matrix:
     #- compiler: ": Win64"
     #  env: HOST=x86_64-w64-mingw32 PACKAGES="nsis gcc-mingw-w64-x86-64 g++-mingw-w64-x86-64 binutils-mingw-w64-x86-64 mingw-w64-dev wine bc" RUN_TESTS=true GOAL="deploy"
     - compiler: ": Win32"
-      env: HOST=i686-w64-mingw32 PACKAGES="nsis gcc-mingw-w64-i686 g++-mingw-w64-i686 binutils-mingw-w64-i686 mingw-w64-dev wine bc" RUN_TESTS=true GOAL="deploy"
+      env: HOST=i686-w64-mingw32 PACKAGES="sshpass unzip nsis gcc-mingw-w64-i686 g++-mingw-w64-i686 binutils-mingw-w64-i686 mingw-w64-dev wine bc" RUN_TESTS=true GOAL="deploy"
 install:
     - if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get update; fi
     - if [ -n "$PACKAGES" ]; then travis_retry sudo apt-get install --no-upgrade -qq $PACKAGES; fi
@@ -62,4 +68,4 @@ script:
     - if [ "$RUN_TESTS" = "true" ]; then make check; fi
     - if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
-    - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then (echo "Upload goes here. Something like: scp -r $BASE_OUTDIR server" || echo "upload failed"); fi
+    - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ( tar czf result.tar.gz $BASE_OUTDIR && sshpass "$SCP_PASSPHRASE" scp result.tar.gz "$SCP_DESTINATION" ; rm -rf result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done" || echo "upload failed"); fi
