@@ -65,7 +65,7 @@ script:
     # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
     - echo $(ls -l $(which sh))
     - echo $(bash --version)
-    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then ( COIN_CONFIG_DIR=$(pwd)/model/$MODEL UNZIP_PASSPHRASE=$PATCH_PASSPHRASE bash bash/makecoin.sh ); fi
+    #- if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then COIN_CONFIG_DIR=$(pwd)/model/$MODEL UNZIP_PASSPHRASE=$PATCH_PASSPHRASE bash bash/makecoin.sh ; fi
     # ### DONE  ###
     - make distdir PACKAGE=bitcoin VERSION=$HOST
     - cd bitcoin-$HOST
