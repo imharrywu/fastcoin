@@ -16,7 +16,7 @@ env:
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
     #- SDK_URL=https://bitcoincore.org/depends-sources/sdks
     - MODEL=freecoin
-    - COIN_CONFIG_DIR=$(pwd)/model/$MODEL	
+    - COIN_CONFIG_DIR=$(pwd)/model/$MODEL
     #- SCP_DESTINATION=someone@someone.net:/home/someone/tarballs
     - secure: "KJ0KYZnEHl1mejooQl7VNgR2nbI8WfEfOo1BeZ+JaaXf5Wd7VhXdQ0iyoZITodAbpUMWYCda5k3m5GyABT7fNg8jR6paHAuuur3s2+MUcQPGHMPoVQskKmGDBkn4qJtSiH9oUcn0LNuU6OmYXVaqYRlyG9NrhQgyyhwgkZgPkdc="
     #- SCP_PASSPHRASE="you can NOT known it!"
@@ -61,14 +61,14 @@ script:
     - echo $(ls -l $(which sh))
     - echo $(bash --version)
     - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then $SHELL bash/makecoin.sh ; fi
-    # ### DONE  ###	
+    # ### DONE  ###
     - OUTDIR=$BASE_OUTDIR/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST
     - BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST --bindir=$OUTDIR/bin --libdir=$OUTDIR/lib"
     - depends/$HOST/native/bin/ccache --max-size=$CCACHE_SIZE
     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export CCACHE_READONLY=1; fi
     # Step [1]: autogen.sh
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
-    # Step [2]: first roll configure	
+    # Step [2]: first roll configure
     - ./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
     # Step [3]: make build directory
     - make distdir PACKAGE=bitcoin VERSION=$HOST
