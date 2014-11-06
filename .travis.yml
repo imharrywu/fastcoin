@@ -83,4 +83,4 @@ script:
     # Step [8]: make rpc call check
     - if [ x$PATCH_PASSPHRASE == x ] && [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
-    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then tar czf $BASE_OUTDIR.tar.gz $BASE_OUTDIR ; sshpass -p "$SCP_PASSPHRASE" scp -o "StrictHostKeyChecking no" $BASE_OUTDIR.tar.gz "$SCP_DESTINATION" ; rm -rf $BASE_OUTDIR.tar.gz ; echo "Uploaded $BASE_OUTDIR.tar.gz"; fi
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then tar czf $OUTDIR.tar.gz $OUTDIR ; sshpass -p "$SCP_PASSPHRASE" scp -o "StrictHostKeyChecking no" $OUTDIR.tar.gz "$SCP_DESTINATION" ; rm -rf $OUTDIR.tar.gz ; echo "Uploaded $OUTDIR.tar.gz"; fi
