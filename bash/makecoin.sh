@@ -5,9 +5,13 @@
 
 COIN_CONFIG_FILE=$COIN_CONFIG_DIR/coin.cfg
 
-if   [ -z "$COIN_CONFIG_DIR" ] ; then echo COIN_CONFIG_DIR is empty, exit; exit -1; fi
-if ! [ -d "$COIN_CONFIG_DIR" -a -f "$COIN_CONFIG_FILE" ] ; then echo $COIN_CONFIG_DIR is not valid directory; exit -1; fi
-echo Loading configuration from "$COIN_CONFIG_DIR"
+if  [ -n "$COIN_CONFIG_DIR" -a -d "$COIN_CONFIG_DIR" -a -f "$COIN_CONFIG_FILE" ] ; then 
+	echo Loading configuration from "$COIN_CONFIG_DIR"
+else 
+	echo $COIN_CONFIG_DIR is not valid directory; 
+	exit -2; 
+fi
+
 
 function getValue(){
 	value=$(grep "$1=.*" "$COIN_CONFIG_FILE" | sed -e "s/.*=\(.*\)/\1/g" ) 
