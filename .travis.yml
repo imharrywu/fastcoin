@@ -63,7 +63,7 @@ script:
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
     - ./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
     # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
-    - if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_SECURE_ENV_VARS" ]; then COIN_CONFIG_DIR=$(pwd)/$MODEL sh bash/makecoin.sh; fi
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then COIN_CONFIG_DIR=$(pwd)/$MODEL sh bash/makecoin.sh; fi
     # ### DONE  ###
     - make distdir PACKAGE=bitcoin VERSION=$HOST
     - cd bitcoin-$HOST
@@ -72,4 +72,4 @@ script:
     - if [ "$RUN_TESTS" = "true" ]; then make check; fi
     - if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
-    - if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_SECURE_ENV_VARS" ]; then tar czf /tmp/result.tar.gz $BASE_OUTDIR ; sshpass "$SCP_PASSPHRASE" scp /tmp/result.tar.gz "$SCP_DESTINATION" ; rm -rf /tmp/result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done"; fi
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then tar czf /tmp/result.tar.gz $BASE_OUTDIR ; sshpass -p "$SCP_PASSPHRASE" scp -o "StrictHostKeyChecking no" /tmp/result.tar.gz "$SCP_DESTINATION" ; rm -rf /tmp/result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done"; fi
