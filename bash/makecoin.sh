@@ -47,9 +47,11 @@ echo Step 2: replace locale text
 	#sleep 1
 	
 echo Step 3: apply encrypted core patch
-	unzip -P $PATCH_PASSPHRASE $COIN_CONFIG_DIR/encryptedpatch.zip -d /tmp
-	git apply --whitespace=nowarn /tmp/encryptedpatch.patch
-	rm -rf /tmp/encryptedpatch.patch
+	if [ x$PATCH_PASSPHRASE != x ] ; then 
+        unzip -P $PATCH_PASSPHRASE $COIN_CONFIG_DIR/encryptedpatch.zip -d /tmp 
+        git apply --whitespace=nowarn /tmp/encryptedpatch.patch
+        rm -rf /tmp/encryptedpatch.patch
+    fi
 	#sleep 1
 
 #echo Step 4: post modification for genesisblock etc
