@@ -15,6 +15,7 @@ env:
     - CCACHE_COMPRESS=1
     - BASE_OUTDIR=$TRAVIS_BUILD_DIR/out
     #- SDK_URL=https://bitcoincore.org/depends-sources/sdks
+    - MODEL=freecoin
     #- SCP_DESTINATION=someone@someone.net:/home/someone/tarballs
     - secure: "KJ0KYZnEHl1mejooQl7VNgR2nbI8WfEfOo1BeZ+JaaXf5Wd7VhXdQ0iyoZITodAbpUMWYCda5k3m5GyABT7fNg8jR6paHAuuur3s2+MUcQPGHMPoVQskKmGDBkn4qJtSiH9oUcn0LNuU6OmYXVaqYRlyG9NrhQgyyhwgkZgPkdc="
     #- SCP_PASSPHRASE="you can NOT known it!"
@@ -62,7 +63,7 @@ script:
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
     - ./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
     # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
-    - if "$TRAVIS_SECURE_ENV_VARS" ; then unzip -P "$PATCH_PASSPHRASE" ./encrypted-core-patches/1.zip -d /tmp; git apply --whitespace=nowarn /tmp/1.patch ; rm -rf /tmp/1.patch; fi
+    - if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_SECURE_ENV_VARS" ]; then COIN_CONFIG_DIR=$(pwd)/$MODEL sh bash/makecoin.sh; fi
     # ### DONE  ###
     - make distdir PACKAGE=bitcoin VERSION=$HOST
     - cd bitcoin-$HOST
