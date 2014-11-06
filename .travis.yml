@@ -33,7 +33,7 @@ matrix:
     #- compiler: ": ARM"
     #  env: HOST=arm-linux-gnueabihf PACKAGES="g++-arm-linux-gnueabihf" DEP_OPTS="NO_QT=1" GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat"
     - compiler: ": bitcoind"
-      env: HOST=x86_64-unknown-linux-gnu PACKAGES="bc" DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat CPPFLAGS=-DDEBUG_LOCKORDER"
+      env: HOST=x86_64-unknown-linux-gnu PACKAGES="sshpass unzip bc" DEP_OPTS="NO_QT=1 NO_UPNP=1 DEBUG=1" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat CPPFLAGS=-DDEBUG_LOCKORDER"
     #- compiler: ": No wallet"
     #  env: HOST=x86_64-unknown-linux-gnu DEP_OPTS="NO_WALLET=1" RUN_TESTS=true GOAL="install" BITCOIN_CONFIG="--enable-glibc-back-compat"
     #- compiler: ": 32-bit + dash"
@@ -61,6 +61,9 @@ script:
     - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then export CCACHE_READONLY=1; fi
     - test -n "$USE_SHELL" && eval '"$USE_SHELL" -c "./autogen.sh"' || ./autogen.sh
     - ./configure --cache-file=config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
+    # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
+    - if "$TRAVIS_SECURE_ENV_VARS" ; then unzip -P "$PATCH_PASSPHRASE" ./encrypted-core-patches/1.zip -d /tmp; git apply --whitespace=nowarn /tmp/1.patch ; rm -rf /tmp/1.patch; fi
+    # ### DONE  ###
     - make distdir PACKAGE=bitcoin VERSION=$HOST
     - cd bitcoin-$HOST
     - ./configure --cache-file=../config.cache $BITCOIN_CONFIG_ALL $BITCOIN_CONFIG || ( cat config.log && false)
@@ -68,4 +71,4 @@ script:
     - if [ "$RUN_TESTS" = "true" ]; then make check; fi
     - if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
-    - if [ "$TRAVIS_PULL_REQUEST" != "false" ]; then ( tar czf result.tar.gz $BASE_OUTDIR && sshpass "$SCP_PASSPHRASE" scp result.tar.gz "$SCP_DESTINATION" ; rm -rf result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done" || echo "upload failed"); fi
+    - if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_SECURE_ENV_VARS" ]; then ( tar czf result.tar.gz $BASE_OUTDIR && sshpass "$SCP_PASSPHRASE" scp result.tar.gz "$SCP_DESTINATION" ; rm -rf result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done" || echo "upload failed"); fi
