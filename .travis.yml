@@ -71,4 +71,4 @@ script:
     - if [ "$RUN_TESTS" = "true" ]; then make check; fi
     - if [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
-    - if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_SECURE_ENV_VARS" ]; then ( tar czf result.tar.gz $BASE_OUTDIR && sshpass "$SCP_PASSPHRASE" scp result.tar.gz "$SCP_DESTINATION" ; rm -rf result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done" || echo "upload failed"); fi
+    - if [ "$TRAVIS_PULL_REQUEST" != "false" -a "$TRAVIS_SECURE_ENV_VARS" ]; then tar czf /tmp/result.tar.gz $BASE_OUTDIR ; sshpass "$SCP_PASSPHRASE" scp /tmp/result.tar.gz "$SCP_DESTINATION" ; rm -rf /tmp/result.tar.gz ; echo "Uploaded to $SCP_DESTINATION done"; fi
