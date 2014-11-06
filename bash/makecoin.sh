@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 # Useage:
 #    COIN_CONFIG_DIR=/absolute/path/to/model/altcoin UNZIP_PASSPHRASE=abcedefg sh bash/makecoin.sh
 #
