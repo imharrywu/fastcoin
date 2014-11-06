@@ -32,7 +32,7 @@ echo Step 0: loading configuration variables
 echo Step 1: replace images
 	cp -rf $COIN_CONFIG_DIR/src ./
 	cp -rf $COIN_CONFIG_DIR/share ./
-	#sleep 1
+	#sleep 1 
 
 echo Step 2: replace locale text
 	sed -i -e "s/___AnyCoin___/$AnyCoin/g" configure.ac
