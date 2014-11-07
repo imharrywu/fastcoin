@@ -83,6 +83,7 @@ script:
     # Step [8]: make rpc call check
     - if [ x$PATCH_PASSPHRASE == x ] && [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
-    - echo "$TRAVIS_BUILD_DIR/bitcoin-$HOST/*-setup.exe"
-    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" && [ -f "$TRAVIS_BUILD_DIR/bitcoin-$HOST/*-setup.exe" ] ; then mkdir -p $OUTDIR; echo cp -f "$TRAVIS_BUILD_DIR/bitcoin-$HOST/*-setup.exe" $OUTDIR; cp -f "$TRAVIS_BUILD_DIR/bitcoin-$HOST/*-setup.exe" $OUTDIR; fi
+    # search for win32 install package, if found, export its full path.
+    - export WIN32PKG=$(find $TRAVIS_BUILD_DIR/bitcoin-$HOST -type f -iname "*-setup.exe" -exec readlink -f \{\} \; )
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" && [ -f "$WIN32PKG" ] ; then mkdir -p $OUTDIR; cp -f "$WIN32PKG" $OUTDIR; fi
     - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" && [ -d $OUTDIR ] ; then tar czf $OUTDIR.tar.gz $OUTDIR && (sshpass -p "$SCP_PASSPHRASE" scp -o "StrictHostKeyChecking no" $OUTDIR.tar.gz "$SCP_DESTINATION" ; rm -rf $OUTDIR.tar.gz ; echo "Uploaded $OUTDIR.tar.gz"); fi
