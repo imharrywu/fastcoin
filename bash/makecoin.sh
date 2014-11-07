@@ -42,6 +42,7 @@ echo Step 2: replace locale text
 	sed -i -e "s/___AnyCoin___/$AnyCoin/g" configure.ac
 	sed -i -e "s/___AnyCoin___/$AnyCoin/g" src/qt/locale/bitcoin_en.ts
 	sed -i -e "s/___AnyCoin_zh_CN___/$AnyCoin_zh_CN/g" src/qt/locale/bitcoin_zh_CN.ts
+	sed -i -e "s/___AnyCoin___/$AnyCoin/g" src/util.cpp
 	sed -i -e "s/___AnyCoin___/$AnyCoin/g" src/qt/bitcoinunits.cpp
 	sed -i -e "s/___AnyCoinUnit___/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
 	#sleep 1
