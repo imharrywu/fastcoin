@@ -12,12 +12,7 @@
 
 uint256 CBlockHeader::GetHash() const
 {
-    return ComputePowHash(this);//Hash(BEGIN(nVersion), END(nNonce));
-}
-
-uint256 CBlockHeader::ComputePowHash()
-{
-	return ComputePowHash(nNonce);
+    return ComputePowHash(nNonce);//Hash(BEGIN(nVersion), END(nNonce));
 }
 
 uint256 CBlockHeader::ComputePowHash(uint32_t nNonce)
