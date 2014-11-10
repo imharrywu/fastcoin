@@ -8,7 +8,7 @@
 #include "hash.h"
 #include "tinyformat.h"
 #include "utilstrencodings.h"
-#include "pow.h"
+#include "streams.h"
 
 uint256 CBlockHeader::GetHash() const
 {
