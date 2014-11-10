@@ -68,6 +68,10 @@ public:
     {
         return (int64_t)nTime;
     }
+
+    uint256 ComputePowHash(const CBlockHeader * pBlockHead);
+
+    uint256 ComputePowHash(const CBlockHeader * pBlockHead, uint32_t nNonce);
 };
 
 
