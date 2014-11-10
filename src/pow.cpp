@@ -121,3 +121,24 @@ uint256 GetProofIncrement(unsigned int nBits)
     // or ~bnTarget / (nTarget+1) + 1.
     return (~bnTarget / (bnTarget + 1)) + 1;
 }
+
+/**
+ * Compute a Proof-of-work hash from block header
+ */
+uint256 ComputePowHash(const CBlockHeader * pBlockHead)
+{
+	return ComputePowHash(pBlockHead, pBlockHead->nNonce);
+}
+
+uint256 ComputePowHash(const CBlockHeader * pBlockHead, uint32_t nNonce)
+{
+    // Write the first 76 bytes of the block header to a double-SHA256 state.
+	CPowHash256 hasher; // TODO: Create a new PowHasher named CPowHash256
+    CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
+    ss << *pBlockHead;
+    assert(ss.size() == 80);
+    hasher.Write((unsigned char*)&ss[0], 76);
+    uint256 powHash;
+    CPowHash256(hasher).Write((unsigned char*)&nNonce, 4).Finalize((unsigned char*)&powHash);
+    return powHash;
+}
