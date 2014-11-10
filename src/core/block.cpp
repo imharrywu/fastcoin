@@ -15,7 +15,7 @@ uint256 CBlockHeader::GetHash() const
     return ComputePowHash(nNonce);//Hash(BEGIN(nVersion), END(nNonce));
 }
 
-uint256 CBlockHeader::ComputePowHash(uint32_t nNonce)
+uint256 CBlockHeader::ComputePowHash(uint32_t nNonce) const
 {
     // Write the first 76 bytes of the block header to a double-SHA256 state.
 	CPowHash256 hasher; // TODO: Create a new PowHasher named CPowHash256
