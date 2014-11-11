@@ -8,10 +8,24 @@
 #include "hash.h"
 #include "tinyformat.h"
 #include "utilstrencodings.h"
+#include "streams.h"
 
 uint256 CBlockHeader::GetHash() const
 {
-    return Hash(BEGIN(nVersion), END(nNonce));
+    return ComputePowHash(nNonce);//Hash(BEGIN(nVersion), END(nNonce));
+}
+
+uint256 CBlockHeader::ComputePowHash(uint32_t nNonce) const
+{
+    // Write the first 76 bytes of the block header to a double-SHA256 state.
+	CPowHash256 hasher; // TODO: Create a new PowHasher named CPowHash256
+    CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
+    ss << *this;
+    assert(ss.size() == 80);
+    hasher.Write((unsigned char*)&ss[0], 76);
+    uint256 powHash;
+    CPowHash256(hasher).Write((unsigned char*)&nNonce, 4).Finalize((unsigned char*)&powHash);
+    return powHash;
 }
 
 uint256 CBlock::BuildMerkleTree(bool* fMutated) const

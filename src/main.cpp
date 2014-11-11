@@ -1180,7 +1180,17 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex)
 
 CAmount GetBlockValue(int nHeight, const CAmount& nFees)
 {
-    int64_t nSubsidy = 50 * COIN;
+    int64_t nSubsidy = 100 * COIN;
+
+    /**
+     * God Give Gold
+     * (1) to encourage miners.
+     * (2) to encourage people to spend coins.
+     * (3) to compensate for loss of coins.
+     * (4) may inflate world.
+     */
+    return nSubsidy + nFees;
+
     int halvings = nHeight / Params().SubsidyHalvingInterval();
 
     // Force block reward to zero when right shift is undefined.
