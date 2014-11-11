@@ -1,0 +1,12 @@
+eclipse.preferences.version=1
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/MINGW_HOME/delimiter=;
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/MINGW_HOME/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/MINGW_HOME/value=D\:\\workspace\\github\\altcoin\\mingw64\\x32-4.8.1-posix-dwarf-rev5
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/MSYS_HOME/delimiter=;
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/MSYS_HOME/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/MSYS_HOME/value=D\:\\workspace\\github\\altcoin\\mingw64\\msys\\1.0
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/PATH/delimiter=;
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/PATH/operation=replace
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/PATH/value=${MINGW_HOME}\\bin;${MSYS_HOME}\\bin;c\:\\git\\bin;C\:/Program Files (x86)/Java/jre7/bin/client;C\:/Program Files (x86)/Java/jre7/bin;C\:/Program Files (x86)/Java/jre7/lib/i386;C\:\\Perl64\\site\\bin;C\:\\Perl64\\bin;C\:\\Program Files (x86)\\Common Files\\NetSarang;C\:\\Windows\\system32;C\:\\Windows;C\:\\Windows\\System32\\Wbem;C\:\\Windows\\System32\\WindowsPowerShell\\v1.0\\;C\:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x86;C\:\\Program Files (x86)\\Intel\\OpenCL SDK\\2.0\\bin\\x64;C\:\\Program Files\\TortoiseGit\\bin;C\:\\Program Files\\TortoiseSVN\\bin;C\:\\Program Files\\VideoLAN\\VLC;C\:\\Program Files (x86)\\VideoLAN\\VLC;D\:\\workspace\\eclipse
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/append=true
+environment/project/cdt.managedbuild.toolchain.gnu.mingw.base.1050126610/appendContributed=true
