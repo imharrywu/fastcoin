@@ -224,6 +224,7 @@ public:
         pchMessageStart[3] = 0xfe;
         vAlertPubKey = ParseHex("045d2d29beffb0a0cbea44f266286ff8b1d11c035538fbb4dadcf6b4073b08f318afea74f01d5a3782e72a22273fb01ab40e99d93adff488236585cc8031323e7c");
         nDefaultPort = 17333;
+        bnProofOfWorkLimit = ~uint256(0) >> 1;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
@@ -232,8 +233,11 @@ public:
         nTargetSpacing = 10 * 60;
 
         //! Modify the testnet genesis block so the timestamp is valid for a later start.
-        genesis.nTime = 1411666333;
-        genesis.nNonce = 414098458;
+        genesis.nTime = 1411666331;
+        genesis.nBits = 0x207fffff;
+        genesis.nNonce = 6;
+
+        //! Check testnet genesis block hash by Proof of work
         hashGenesisBlock = genesis.GetHash();
         std::string sHashGenesisBlock = hashGenesisBlock.ToString();
         assert(hashGenesisBlock == uint256("0xfbd4eace26c3af505cd9bfa1d2e947df3f1da38184df4f44d9cff85825ef2d11"));
@@ -280,6 +284,9 @@ public:
         pchMessageStart[1] = 0xad;
         pchMessageStart[2] = 0xca;
         pchMessageStart[3] = 0xfe;
+        nDefaultPort = 27333;
+        bnProofOfWorkLimit = ~uint256(0) >> 1;
+
         nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -287,12 +294,14 @@ public:
         nMinerThreads = 1;
         nTargetTimespan = 14 * 24 * 60 * 60; //! two weeks
         nTargetSpacing = 10 * 60;
-        bnProofOfWorkLimit = ~uint256(0) >> 1;
+
+        // Setup genesis block's param for regtest net.
         genesis.nTime = 1296688602;
         genesis.nBits = 0x207fffff;
         genesis.nNonce = 2;
+
+        // Check genesis block hash by Proof of work
         hashGenesisBlock = genesis.GetHash();
-        nDefaultPort = 27333;
         std::string sHashGenesisBlock = hashGenesisBlock.ToString();
         assert(hashGenesisBlock == uint256("0x07eb408b27b90773e53bc7c803eb02cf1f725375b67905f80c3c03c821395809"));
 
