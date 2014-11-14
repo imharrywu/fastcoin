@@ -240,7 +240,7 @@ public:
         //! Check testnet genesis block hash by Proof of work
         hashGenesisBlock = genesis.GetHash();
         std::string sHashGenesisBlock = hashGenesisBlock.ToString();
-        assert(hashGenesisBlock == uint256("0xfbd4eace26c3af505cd9bfa1d2e947df3f1da38184df4f44d9cff85825ef2d11"));
+        assert(hashGenesisBlock == uint256("0x439b64c567dc10054382e60c9ff2660d1cdfb8db90ff2d5309a83527cb704c59"));
 
         vFixedSeeds.clear();
         vSeeds.clear();
