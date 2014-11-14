@@ -401,7 +401,6 @@ bool SelectParamsFromCommandLine()
     if (network == CBaseChainParams::MAX_NETWORK_TYPES)
         return false;
 
-    SelectBaseParams(network);
     SelectParams(network);
     return true;
 }
