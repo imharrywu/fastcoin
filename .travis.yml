@@ -22,7 +22,7 @@ env:
     #- SCP_PASSPHRASE="you can NOT known it!"
     - secure: "gTgRRTsgNFH0VvGsFJ9qoMzx5kB6sPdSwssEZJk1SAFEL7lmhCwquymAOK8QouFb9VxJvPenPxK28f/dPSI60/gijNScQBS8YWN5bQdBYncO/n2w93oscRXzEKd4dzwykD4H9rWw6dOmSHi4zaaT8z5rL5IbZbTpIP6j2yLHiX4="
     #- PATCH_PASSPHRASE="very secure passphrase"
-    - secure: "c2DLcb/z3YLM45PhzBahbf+buR7keM1+JvcWpSmj4p2JQobH4bERmJY5hff9dGq2TwulijrRmrB/mV7skwWuEVrGZSO/v0c1ENERPh/RjGhG35smVevPBL/itBWNzTnoyLAm4e0th+ps1/FcD1UBP3XRBoeEFO9NluDUSvGavTs="
+    #- secure: "c2DLcb/z3YLM45PhzBahbf+buR7keM1+JvcWpSmj4p2JQobH4bERmJY5hff9dGq2TwulijrRmrB/mV7skwWuEVrGZSO/v0c1ENERPh/RjGhG35smVevPBL/itBWNzTnoyLAm4e0th+ps1/FcD1UBP3XRBoeEFO9NluDUSvGavTs="
 cache:
   apt: true
   directories:
@@ -60,7 +60,7 @@ script:
     # ### BEGIN ###try to patch info from template, e.g. icons, images, strings, algorithm etc.
     - echo $(ls -l $(which sh))
     - echo $(bash --version)
-    #- if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" ; then $SHELL $TRAVIS_BUILD_DIR/buildscript/makecoin.sh ; fi
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" && [ x$MODEL != xfreecoin] ; then $SHELL $TRAVIS_BUILD_DIR/buildscript/altcoin.sh ; fi
     # ### DONE  ###
     - OUTDIR=$BASE_OUTDIR/$TRAVIS_PULL_REQUEST/$TRAVIS_JOB_NUMBER-$HOST
     - BITCOIN_CONFIG_ALL="--disable-dependency-tracking --prefix=$TRAVIS_BUILD_DIR/depends/$HOST --bindir=$OUTDIR/bin --libdir=$OUTDIR/lib"
@@ -79,9 +79,9 @@ script:
     # Step [6]: make 
     - make $MAKEJOBS $GOAL || ( echo "Build failure. Verbose build follows." && make $GOAL V=1 ; false )
     # Step [7]: make check
-    - if [ x$PATCH_PASSPHRASE == x ] && [ "$RUN_TESTS" = "true" ]; then make check; fi
+    #- if [ x$PATCH_PASSPHRASE == x ] && [ "$RUN_TESTS" = "true" ]; then make check; fi
     # Step [8]: make rpc call check
-    - if [ x$PATCH_PASSPHRASE == x ] && [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
+    #- if [ x$PATCH_PASSPHRASE == x ] && [ "$RUN_TESTS" = "true" ]; then qa/pull-tester/rpc-tests.sh; fi
 after_script:
     # search for win32 install package, if found, export its full path.
     - export WIN32PKG=$(find $TRAVIS_BUILD_DIR/bitcoin-$HOST -type f -iname "*-setup.exe" -exec readlink -f \{\} \; ); echo Win32InstallPackage is "$WIN32PKG"
