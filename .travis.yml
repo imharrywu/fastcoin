@@ -86,5 +86,7 @@ script:
 after_script:
     # search for win32 install package, if found, export its full path.
     - export WIN32PKG=$(find $TRAVIS_BUILD_DIR/bitcoin-$HOST -type f -iname "*-setup.exe" -exec readlink -f \{\} \; ); echo Win32InstallPackage is "$WIN32PKG"
+    - export OSXPKG=$(find $TRAVIS_BUILD_DIR/bitcoin-$HOST -type f -iname "Bitcoin-Qt.dmg" -exec readlink -f \{\} \; ); echo OSXInstallPackage is "$OSXPKG"
     - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" && [ -f "$WIN32PKG" ] ; then mkdir -p $OUTDIR; cp -f "$WIN32PKG" $OUTDIR; fi
+    - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" && [ -f "$OSXPKG" ] ; then mkdir -p $OUTDIR; cp -f "$OSXPKG" $OUTDIR; fi
     - if ! "$TRAVIS_PULL_REQUEST" && "$TRAVIS_SECURE_ENV_VARS" && [ -d $OUTDIR ] ; then tar czf $OUTDIR.tar.gz $OUTDIR && (sshpass -p "$SCP_PASSPHRASE" scp -o "StrictHostKeyChecking no" $OUTDIR.tar.gz "$SCP_DESTINATION" ; rm -rf $OUTDIR.tar.gz ; echo "Uploaded $OUTDIR.tar.gz"); fi
