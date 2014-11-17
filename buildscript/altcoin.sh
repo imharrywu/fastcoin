@@ -31,7 +31,8 @@ echo Step 2: replace locale text
 	sed -i -e "s/FreeCoin/$AnyCoin/g" configure.ac
 	sed -i -e "s/FreeCoin/$AnyCoin/g" src/qt/locale/bitcoin_en.ts
 	sed -i -e "s/FreeCoin/$AnyCoin/g" src/qt/guiconstants.h
-	sed -i -e "s/FreeCoin_zh_CN/$AnyCoin_zh_CN/g" src/qt/locale/bitcoin_zh_CN.ts
+	sed -i -e "s/自由币/$AnyCoin_zh_CN/g" src/qt/locale/bitcoin_zh_CN.ts
 	sed -i -e "s/FreeCoin/$AnyCoin/g" src/util.cpp
 	sed -i -e "s/FreeCoin/$AnyCoin/g" src/qt/bitcoinunits.cpp
-	sed -i -e "s/FreeCoinUnit/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
+	sed -i -e "s/\<FTC\>/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
+	sed -i -e "s/\<ftc\>/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
