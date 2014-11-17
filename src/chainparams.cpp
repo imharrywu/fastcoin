@@ -182,7 +182,7 @@ public:
 
         base58Prefixes[PUBKEY_ADDRESS] = list_of(55); // P prefix
         base58Prefixes[SCRIPT_ADDRESS] = list_of(63); // S prefix
-        base58Prefixes[SECRET_KEY] =     list_of(45); // K prefix
+        base58Prefixes[SECRET_KEY] =     list_of(45); // 7 prefix
         base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xEE)(0x55);
         base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xEE)(0x45);
 
