@@ -8,6 +8,7 @@
 
 #include "crypto/ripemd160.h"
 #include "crypto/sha2.h"
+#include "crypto/scrypt.h"
 #include "serialize.h"
 #include "uint256.h"
 #include "version.h"
