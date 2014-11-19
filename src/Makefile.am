@@ -201,6 +201,8 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/common.h \
   crypto/sha2.h \
   crypto/sha1.h \
+  crypto/scrypt.h \
+  crypto/scrypt.cpp \
   crypto/ripemd160.h
 
 # univalue JSON library
