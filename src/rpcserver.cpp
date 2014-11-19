@@ -246,6 +246,7 @@ static const CRPCCommand vRPCCommands[] =
     { "control",            "getinfo",                &getinfo,                true,      false,      false }, /* uses wallet if enabled */
     { "control",            "help",                   &help,                   true,      true,       false },
     { "control",            "stop",                   &stop,                   true,      true,       false },
+    { "control",            "setmocktime",            &setmocktime,            true,      false,      false },
 
     /* P2P networking */
     { "network",            "getnetworkinfo",         &getnetworkinfo,         true,      false,      false },
@@ -946,9 +947,16 @@ void ServiceConnection(AcceptedConnection *conn)
         if (mapHeaders["connection"] == "close")
             fRun = false;
 
+        // Process via JSON-RPC API
         if (strURI == "/") {
             if (!HTTPReq_JSONRPC(conn, strRequest, mapHeaders, fRun))
                 break;
+
+        // Process via HTTP REST API
+        } else if (strURI.substr(0, 6) == "/rest/") {
+            if (!HTTPReq_REST(conn, strURI, mapHeaders, fRun))
+                break;
+
         } else {
             conn->stream() << HTTPError(HTTP_NOT_FOUND, false) << std::flush;
             break;
