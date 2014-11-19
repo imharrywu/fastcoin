@@ -122,6 +122,7 @@ public:
         nMinerThreads = 1; // 0 for all available cpus.
         nTargetTimespan = 14 * 24 * 60 * 60; // two weeks
         nTargetSpacing = 10 * 60;
+        nGenesisSubsidy = 100;
 
         /**
          * Build the genesis block. Note that the output of the genesis coinbase cannot
@@ -141,7 +142,7 @@ public:
         //                            -z "shanghai stock index closed at 2343.57, on 24th Sept., 2014" \
         //                            -a SHA256 \
         //                            -p 049e02fa9aa3c19a3b112a58bab503c5caf797972f5cfe1006275aa5485a01b48f9f648bc5380ee1e82dc6f474c8e0f7e2f6bbd0de9355f92496e3ea327ccb19cc \
-        //                            -v 100
+        //                            -v 10000000000
         // Raw block data: 04ffff001d01043b7368616e676861692073746f636b20696e64657820636c6f73656420617420323334332e35372c206f6e203234746820536570742e2c2032303134
         // algorithm: SHA256
         // merkle hash: 1c395aad7fab156523a095a869d3fcdf3249a8a97c8d7337adb4f33d826da32b
@@ -159,7 +160,7 @@ public:
         txNew.vin.resize(1);
         txNew.vout.resize(1);
         txNew.vin[0].scriptSig = CScript() << 0x1d00ffff << CScriptNum(4) << vector<unsigned char>((const unsigned char*)pszTimestamp, (const unsigned char*)pszTimestamp + strlen(pszTimestamp));
-        txNew.vout[0].nValue = 100 * COIN;
+        txNew.vout[0].nValue = nGenesisSubsidy * COIN;
         txNew.vout[0].scriptPubKey = CScript() << ParseHex("049e02fa9aa3c19a3b112a58bab503c5caf797972f5cfe1006275aa5485a01b48f9f648bc5380ee1e82dc6f474c8e0f7e2f6bbd0de9355f92496e3ea327ccb19cc") << OP_CHECKSIG;
         genesis.vtx.push_back(txNew);
         genesis.hashPrevBlock = 0;
