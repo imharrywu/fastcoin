@@ -47,9 +47,9 @@ static const int MAX_PAYMENT_REQUEST_SIZE = 50000; // bytes
 /* Number of frames in spinner animation */
 #define SPINNER_FRAMES 35
 
-#define QAPP_ORG_NAME "FreeCoin"
-#define QAPP_ORG_DOMAIN "FreeCoin.org"
-#define QAPP_APP_NAME_DEFAULT "FreeCoin-Qt"
-#define QAPP_APP_NAME_TESTNET "FreeCoin-Qt-testnet"
+#define QAPP_ORG_NAME "FastCoin"
+#define QAPP_ORG_DOMAIN "FastCoin.org"
+#define QAPP_APP_NAME_DEFAULT "FastCoin-Qt"
+#define QAPP_APP_NAME_TESTNET "FastCoin-Qt-testnet"
 
 #endif // BITCOIN_QT_GUICONSTANTS_H
