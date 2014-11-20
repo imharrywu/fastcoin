@@ -38,7 +38,7 @@ Instructions: Homebrew
 
 #### Install dependencies using Homebrew
 
-        brew install autoconf automake libtool boost miniupnpc openssl pkg-config protobuf qt
+        brew install autoconf automake libtool boost miniupnpc openssl pkg-config protobuf qt gmp
 
 #### Installing berkeley-db4 using Homebrew
 
@@ -83,6 +83,22 @@ After exiting, you'll get a warning that the install is keg-only, which means it
 4.  (Optional) You can also install bitcoind to your path:
 
         make install
+
+Use Qt Creator as IDE
+------------------------
+You can use Qt Creator as IDE, for debugging and for manipulating forms, etc.
+Download Qt Creator from http://www.qt.io/download/. Download the "community edition" and only install Qt Creator (uncheck the rest during the installation process).
+
+1. Make sure you installed everything through homebrew mentioned above 
+2. Do a proper ./configure --with-gui=qt5 --enable-debug
+3. In Qt Creator do "New Project" -> Import Project -> Import Existing Project
+4. Enter "bitcoin-qt" as project name, enter src/qt as location
+5. Leave the file selection as it is
+6. Confirm the "summary page"
+7. In the "Projects" tab select "Manage Kits..."
+8. Select the default "Desktop" kit and select "Clang (x86 64bit in /usr/bin)" as compiler
+9. Select LLDB as debugger (you might need to set the path to your installtion)
+10. Start debugging with Qt Creator
 
 Creating a release build
 ------------------------
