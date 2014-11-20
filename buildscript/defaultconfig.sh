@@ -49,7 +49,7 @@ export PATH=${PATH}:${MAKENSIS_HOME}:${GIT_BIN_HOME}:${HEXTOOLS_BIN_HOME}
 	--disable-tests \
 	--disable-ccache \
 	--enable-debug \
-	--enable-tests \
+	--disable-tests \
 	--enable-upnp-default \
 	--with-boost="${BOOST_TOP_HOME}" \
 	--with-qrencode=yes \
