@@ -63,6 +63,54 @@ public:
     }
 };
 
+/** A hasher class for Bitcoin's 256-bit PoW hash (Double SHA-256). */
+class CDoubleSHA256Pow
+{
+private:
+    CSHA256 sha;
+public:
+    static const size_t OUTPUT_SIZE = CSHA256::OUTPUT_SIZE;
+
+    void Finalize(unsigned char hash[OUTPUT_SIZE]) {
+        unsigned char buf[sha.OUTPUT_SIZE];
+        sha.Finalize(buf);
+        sha.Reset().Write(buf, sha.OUTPUT_SIZE).Finalize(hash);
+    }
+
+    CDoubleSHA256Pow& Write(const unsigned char *data, size_t len) {
+        sha.Write(data, len);
+        return *this;
+    }
+
+    CDoubleSHA256Pow& Reset() {
+        sha.Reset();
+        return *this;
+    }
+};
+
+/** A hasher class for Bitcoin's 256-bit PoW hash (Single Scrypt-256). */
+class CScryptHash256Pow
+{
+private:
+    CScrypt256 scrypt;
+public:
+    static const size_t OUTPUT_SIZE = CScrypt256::OUTPUT_SIZE;
+
+    void Finalize(unsigned char hash[OUTPUT_SIZE]) {
+        scrypt.Finalize(hash);
+    }
+
+    CScryptHash256Pow& Write(const unsigned char *data, size_t len) {
+        scrypt.Write(data, len);
+        return *this;
+    }
+
+    CScryptHash256Pow& Reset() {
+        scrypt.Reset();
+        return *this;
+    }
+};
+
 /** Compute the 256-bit hash of an object. */
 template<typename T1>
 inline uint256 Hash(const T1 pbegin, const T1 pend)
@@ -161,7 +209,5 @@ uint256 SerializeHash(const T& obj, int nType=SER_GETHASH, int nVersion=PROTOCOL
 unsigned int MurmurHash3(unsigned int nHashSeed, const std::vector<unsigned char>& vDataToHash);
 
 void BIP32Hash(const unsigned char chainCode[32], unsigned int nChild, unsigned char header, const unsigned char data[32], unsigned char output[64]);
-
-typedef class CHash256 CDoubleSHA256Pow;
 
 #endif // BITCOIN_HASH_H
