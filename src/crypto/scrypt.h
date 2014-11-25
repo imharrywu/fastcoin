@@ -2,26 +2,12 @@
 #define SCRYPT_H
 #include <stdlib.h>
 #include <stdint.h>
+#include <vector>
 
 static const int SCRYPT_SCRATCHPAD_SIZE = 131072 + 63;
 
-void scrypt_1024_1_1_256(const char *input, char *output);
-void scrypt_1024_1_1_256_sp_generic(const char *input, char *output, char *scratchpad);
-
-#if defined(USE_SSE2)
-#if defined(_M_X64) || defined(__x86_64__) || defined(_M_AMD64) || (defined(MAC_OSX) && defined(__i386__))
-#define USE_SSE2_ALWAYS 1
-#define scrypt_1024_1_1_256_sp(input, output, scratchpad) scrypt_1024_1_1_256_sp_sse2((input), (output), (scratchpad))
-#else
-#define scrypt_1024_1_1_256_sp(input, output, scratchpad) scrypt_1024_1_1_256_sp_detected((input), (output), (scratchpad))
-#endif
-
-void scrypt_detect_sse2();
-void scrypt_1024_1_1_256_sp_sse2(const char *input, char *output, char *scratchpad);
-extern void (*scrypt_1024_1_1_256_sp_detected)(const char *input, char *output, char *scratchpad);
-#else
-#define scrypt_1024_1_1_256_sp(input, output, scratchpad) scrypt_1024_1_1_256_sp_generic((input), (output), (scratchpad))
-#endif
+void scrypt_1024_1_1_256(const char *input, size_t inputlen, char *output);
+void scrypt_1024_1_1_256_sp_generic(const char *input, size_t inputlen, char *output, char *scratchpad);
 
 void
 PBKDF2_SHA256(const uint8_t *passwd, size_t passwdlen, const uint8_t *salt,
@@ -42,4 +28,19 @@ static inline void le32enc(void *pp, uint32_t x)
         p[2] = (x >> 16) & 0xff;
         p[3] = (x >> 24) & 0xff;
 }
+
+/** A hasher class for Scrypt-256. */
+class CScrypt256
+{
+private:
+    std::vector<unsigned char> m_vchBuf;
+public:
+    static const size_t OUTPUT_SIZE = 32;
+
+    CScrypt256();
+    CScrypt256& Write(const unsigned char* data, size_t len);
+    void Finalize(unsigned char hash[OUTPUT_SIZE]);
+    CScrypt256& Reset();
+};
+
 #endif

@@ -22,6 +22,7 @@ echo Step 0: loading configuration variables
 	AnyCoin=$(getValue "name") ; 
 	AnyCoin_zh_CN=$(getValue "name_zh_CN"); 
 	AnyCoinUint=$(getValue "unit");
+	AnyCoinUintUpper=$(getValue "unit_upper");
 
 echo Step 1: replace images
 	cp -rf $COIN_CONFIG_DIR/src ./
@@ -34,5 +35,5 @@ echo Step 2: replace locale text
 	sed -i -e "s/自由币/$AnyCoin_zh_CN/g" src/qt/locale/bitcoin_zh_CN.ts
 	sed -i -e "s/FreeCoin/$AnyCoin/g" src/util.cpp
 	sed -i -e "s/FreeCoin/$AnyCoin/g" src/qt/bitcoinunits.cpp
-	sed -i -e "s/\<FTC\>/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
+	sed -i -e "s/\<FTC\>/$AnyCoinUintUpper/g" src/qt/bitcoinunits.cpp
 	sed -i -e "s/\<ftc\>/$AnyCoinUint/g" src/qt/bitcoinunits.cpp

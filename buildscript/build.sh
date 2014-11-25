@@ -7,4 +7,4 @@ export GIT_BIN_HOME="/c/Git/bin"
 
 export PATH=${PATH}:${MAKENSIS_HOME}:${GIT_BIN_HOME}:${HEXTOOLS_BIN_HOME}
 
-make && make deploy
+make deploy

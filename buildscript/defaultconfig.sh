@@ -42,6 +42,9 @@ export CRYPTO_LIB_HOME=${DEPEND_HOME}/ssl/lib
 export ZLIB_INC_HOME=${DEPEND_HOME}/zlib-1.2.8/include
 export ZLIB_LIB_HOME=${DEPEND_HOME}/zlib-1.2.8/lib
 
+export GMP_INC_HOME=${DEPEND_HOME}/gmp-6.0.0a/include
+export GMP_LIB_HOME=${DEPEND_HOME}/gmp-6.0.0a/lib
+
 export PATH=${PATH}:${MAKENSIS_HOME}:${GIT_BIN_HOME}:${HEXTOOLS_BIN_HOME}
 
 ./configure \
@@ -49,7 +52,7 @@ export PATH=${PATH}:${MAKENSIS_HOME}:${GIT_BIN_HOME}:${HEXTOOLS_BIN_HOME}
 	--disable-tests \
 	--disable-ccache \
 	--enable-debug \
-	--enable-tests \
+	--disable-tests \
 	--enable-upnp-default \
 	--with-boost="${BOOST_TOP_HOME}" \
 	--with-qrencode=yes \
@@ -61,9 +64,9 @@ export PATH=${PATH}:${MAKENSIS_HOME}:${GIT_BIN_HOME}:${HEXTOOLS_BIN_HOME}
 	--with-qt-libdir=${QT_LIB_HOME} \
 	--with-qt-bindir=${QT_BIN_HOME} \
 	--with-qt-plugindir=${QT_PLUGIN_HOME} \
-	CPPFLAGS="-I${QR_INC_HOME} -I${PNG_INC_HOME} -I${PROTOC_INC_HOME} -I${SSL_INC_HOME} -I${CRYPTO_INC_HOME} -I${BDB_INC_HOME} -I${MINIUPNPC_INC_HOME} -I${BOOST_INC_HOME} -I${ZLIB_INC_HOME}" \
+	CPPFLAGS="-I$GMP_INC_HOME -I${QR_INC_HOME} -I${PNG_INC_HOME} -I${PROTOC_INC_HOME} -I${SSL_INC_HOME} -I${CRYPTO_INC_HOME} -I${BDB_INC_HOME} -I${MINIUPNPC_INC_HOME} -I${BOOST_INC_HOME} -I${ZLIB_INC_HOME}" \
 	CFLAGS="-w -g -O0 " \
-	LDFLAGS="-L${QR_LIB_HOME} -L${QT_CODECS_HOME} -L${QT_ACCESSIBLE_HOME} -L${PNG_LIB_HOME} -L${PROTOC_LIB_HOME} -L${SSL_LIB_HOME} -L${CRYPTO_LIB_HOME} -L${BDB_LIB_HOME} -L${MINIUPNPC_LIB_HOME} -L${ZLIB_LIB_HOME}" 
+	LDFLAGS="-L$GMP_LIB_HOME -L${QR_LIB_HOME} -L${QT_CODECS_HOME} -L${QT_ACCESSIBLE_HOME} -L${PNG_LIB_HOME} -L${PROTOC_LIB_HOME} -L${SSL_LIB_HOME} -L${CRYPTO_LIB_HOME} -L${BDB_LIB_HOME} -L${MINIUPNPC_LIB_HOME} -L${ZLIB_LIB_HOME}" 
 
 #sh ./unix_path_to_win_path.sh /d/workspace
 	

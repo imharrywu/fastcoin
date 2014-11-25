@@ -110,18 +110,18 @@ public:
          */
         pchMessageStart[0] = 0x90;
         pchMessageStart[1] = 0x0d;
-        pchMessageStart[2] = 0xca;
-        pchMessageStart[3] = 0xfe;
+        pchMessageStart[2] = 0xf0;
+        pchMessageStart[3] = 0x0d;
         vAlertPubKey = ParseHex("04e01590abdc5967eb550413fcf04bbd7cead46f13579b58d52ea2f08d71a1a94196c476cd4fa60c30b51737fe3d9c8c88a04a6bec2282ebb1f22286130a153b85");
-        nDefaultPort = 7333;
+        nDefaultPort = 9999;
         bnProofOfWorkLimit = ~uint256(0) >> 32;
         nSubsidyHalvingInterval = 210000;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
         nToCheckBlockUpgradeMajority = 1000;
         nMinerThreads = 1; // 0 for all available cpus.
-        nTargetTimespan = 14 * 24 * 60 * 60; // two weeks
-        nTargetSpacing = 10 * 60;
+        nTargetTimespan = 60 * 60; // re-targeting every one hour
+        nTargetSpacing = 1 * 60;  // do new pow every 1 minutes.
         nGenesisSubsidy = 100;
 
         /**
@@ -181,10 +181,10 @@ public:
         //vSeeds.push_back(CDNSSeedData("bitnodes.io", "seed.bitnodes.io"));
         //vSeeds.push_back(CDNSSeedData("xf2.org", "bitseed.xf2.org"));
 
-        base58Prefixes[PUBKEY_ADDRESS] = list_of(55); // P prefix
-        base58Prefixes[SCRIPT_ADDRESS] = list_of(63); // S prefix
+        base58Prefixes[PUBKEY_ADDRESS] = list_of(35); // F prefix
+        base58Prefixes[SCRIPT_ADDRESS] = list_of(65); // T prefix
         base58Prefixes[SECRET_KEY] =     list_of(45); // 7 prefix
-        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xEE)(0x55);
+        base58Prefixes[EXT_PUBLIC_KEY] = list_of(0x04)(0x88)(0xEE)(0x35);
         base58Prefixes[EXT_SECRET_KEY] = list_of(0x04)(0x88)(0xEE)(0x45);
 
         //convertSeed6(vFixedSeeds, pnSeed6_main, ARRAYLEN(pnSeed6_main));
@@ -221,10 +221,10 @@ public:
          */
         pchMessageStart[0] = 0xC0;
         pchMessageStart[1] = 0x1d;
-        pchMessageStart[2] = 0xca;
-        pchMessageStart[3] = 0xfe;
+        pchMessageStart[2] = 0xf0;
+        pchMessageStart[3] = 0x0d;
         vAlertPubKey = ParseHex("045d2d29beffb0a0cbea44f266286ff8b1d11c035538fbb4dadcf6b4073b08f318afea74f01d5a3782e72a22273fb01ab40e99d93adff488236585cc8031323e7c");
-        nDefaultPort = 17333;
+        nDefaultPort = 19999;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
@@ -283,9 +283,9 @@ public:
         strNetworkID = "regtest";
         pchMessageStart[0] = 0x0b;
         pchMessageStart[1] = 0xad;
-        pchMessageStart[2] = 0xca;
-        pchMessageStart[3] = 0xfe;
-        nDefaultPort = 27333;
+        pchMessageStart[2] = 0xf0;
+        pchMessageStart[3] = 0x0d;
+        nDefaultPort = 29999;
         bnProofOfWorkLimit = ~uint256(0) >> 1;
 
         nSubsidyHalvingInterval = 150;
