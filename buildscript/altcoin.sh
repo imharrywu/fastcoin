@@ -20,6 +20,7 @@ function getValue(){
 
 echo Step 0: loading configuration variables
 	AnyCoin=$(getValue "name") ; 
+	AnyCoin_Lower=$(getValue "name_lower");
 	AnyCoin_zh_CN=$(getValue "name_zh_CN"); 
 	AnyCoinUint=$(getValue "unit");
 	AnyCoinUintUpper=$(getValue "unit_upper");
@@ -29,11 +30,12 @@ echo Step 1: replace images
 	cp -rf $COIN_CONFIG_DIR/share ./
 
 echo Step 2: replace locale text
-	sed -i -e "s/FreeCoin/$AnyCoin/g" configure.ac
-	sed -i -e "s/FreeCoin/$AnyCoin/g" src/qt/locale/bitcoin_en.ts
-	sed -i -e "s/FreeCoin/$AnyCoin/g" src/qt/guiconstants.h
-	sed -i -e "s/自由币/$AnyCoin_zh_CN/g" src/qt/locale/bitcoin_zh_CN.ts
-	sed -i -e "s/FreeCoin/$AnyCoin/g" src/util.cpp
-	sed -i -e "s/FreeCoin/$AnyCoin/g" src/qt/bitcoinunits.cpp
-	sed -i -e "s/\<FTC\>/$AnyCoinUintUpper/g" src/qt/bitcoinunits.cpp
-	sed -i -e "s/\<ftc\>/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" configure.ac
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/locale/bitcoin_en.ts
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/guiconstants.h
+	sed -i -e "s/快钱/$AnyCoin_zh_CN/g" src/qt/locale/bitcoin_zh_CN.ts
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/util.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/util.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/bitcoinunits.cpp
+	sed -i -e "s/FTC/$AnyCoinUintUpper/g" src/qt/bitcoinunits.cpp
+	sed -i -e "s/ftc/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
