@@ -67,11 +67,11 @@
     </message>
     <message>
         <source>These are your Bitcoin addresses for sending payments. Always check the amount and the receiving address before sending coins.</source>
-        <translation>这是您用来付款的快钱地址。在付款前，请总是核实付款金额和收款地址。</translation>
+        <translation>这是您用来付款的艾特币地址。在付款前，请总是核实付款金额和收款地址。</translation>
     </message>
     <message>
         <source>These are your Bitcoin addresses for receiving payments. It is recommended to use a new receiving address for each transaction.</source>
-        <translation>这些都是您的快钱地址，可用于收款。建议对每笔交易都使用一个新的地址。</translation>
+        <translation>这些都是您的艾特币地址，可用于收款。建议对每笔交易都使用一个新的地址。</translation>
     </message>
     <message>
         <source>Copy &amp;Label</source>
@@ -165,7 +165,7 @@
     </message>
     <message>
         <source>Warning: If you encrypt your wallet and lose your passphrase, you will &lt;b&gt;LOSE ALL OF YOUR BITCOINS&lt;/b&gt;!</source>
-        <translation>警告：如果您加密了您的钱包，但是忘记了密码，你将会&lt;b&gt;丢失所有的快钱&lt;/b&gt;！</translation>
+        <translation>警告：如果您加密了您的钱包，但是忘记了密码，你将会&lt;b&gt;丢失所有的艾特币&lt;/b&gt;！</translation>
     </message>
     <message>
         <source>Are you sure you wish to encrypt your wallet?</source>
@@ -185,7 +185,7 @@
     </message>
     <message>
         <source>Bitcoin will close now to finish the encryption process. Remember that encrypting your wallet cannot fully protect your bitcoins from being stolen by malware infecting your computer.</source>
-        <translation>快钱客户端将关闭软件以完成加密过程。请您谨记：钱包加密并不是万能的，电脑中毒等原因仍可能导致您的快钱意外丢失。</translation>
+        <translation>艾特币客户端将关闭软件以完成加密过程。请您谨记：钱包加密并不是万能的，电脑中毒等原因仍可能导致您的艾特币意外丢失。</translation>
     </message>
     <message>
         <source>Wallet encryption failed</source>
@@ -292,7 +292,7 @@
     </message>
     <message>
         <source>Bitcoin Core client</source>
-        <translation>快钱核心钱包</translation>
+        <translation>艾特币核心钱包</translation>
     </message>
     <message>
         <source>Importing blocks from disk...</source>
@@ -304,11 +304,11 @@
     </message>
     <message>
         <source>Send coins to a Bitcoin address</source>
-        <translation>向一个快钱地址发送快钱</translation>
+        <translation>向一个艾特币地址发送艾特币</translation>
     </message>
     <message>
         <source>Modify configuration options for Bitcoin</source>
-        <translation>设置快钱选项</translation>
+        <translation>设置艾特币选项</translation>
     </message>
     <message>
         <source>Backup wallet to another location</source>
@@ -332,7 +332,7 @@
     </message>
     <message>
         <source>Bitcoin</source>
-        <translation>快钱</translation>
+        <translation>艾特币</translation>
     </message>
     <message>
         <source>Wallet</source>
@@ -348,7 +348,7 @@
     </message>
     <message>
         <source>Show information about Bitcoin Core</source>
-        <translation>显示有关快钱核心钱包信息</translation>
+        <translation>显示有关艾特币核心钱包信息</translation>
     </message>
     <message>
         <source>&amp;Show / Hide</source>
@@ -364,11 +364,11 @@
     </message>
     <message>
         <source>Sign messages with your Bitcoin addresses to prove you own them</source>
-        <translation>用快钱地址关联的私钥为消息签名，以证明您拥有这个快钱地址</translation>
+        <translation>用艾特币地址关联的私钥为消息签名，以证明您拥有这个艾特币地址</translation>
     </message>
     <message>
         <source>Verify messages to ensure they were signed with specified Bitcoin addresses</source>
-        <translation>校验消息，确保该消息是由指定的快钱地址所有者签名的</translation>
+        <translation>校验消息，确保该消息是由指定的艾特币地址所有者签名的</translation>
     </message>
     <message>
         <source>&amp;File</source>
@@ -388,7 +388,7 @@
     </message>
     <message>
         <source>Bitcoin Core</source>
-        <translation>快钱核心</translation>
+        <translation>艾特币核心</translation>
     </message>
     <message>
         <source>Request payments (generates QR codes and bitcoin: URIs)</source>
@@ -396,7 +396,7 @@
     </message>
     <message>
         <source>&amp;About Bitcoin Core</source>
-        <translation>关于快钱核心(&amp;A)</translation>
+        <translation>关于艾特币核心(&amp;A)</translation>
     </message>
     <message>
         <source>Show the list of used sending addresses and labels</source>
@@ -416,11 +416,11 @@
     </message>
     <message>
         <source>Show the Bitcoin Core help message to get a list with possible Bitcoin command-line options</source>
-        <translation>显示快钱核心 程序帮助信息，获取可用的命令行选项 </translation>
+        <translation>显示艾特币核心 程序帮助信息，获取可用的命令行选项 </translation>
     </message>
     <message numerus="yes">
         <source>%n active connection(s) to Bitcoin network</source>
-        <translation><numerusform>%n 个到快钱网络的活动连接</numerusform></translation>
+        <translation><numerusform>%n 个到艾特币网络的活动连接</numerusform></translation>
     </message>
     <message>
         <source>No block source available...</source>
@@ -714,7 +714,7 @@ Address: %4
     </message>
     <message>
         <source>This label turns red, if any recipient receives an amount smaller than %1.</source>
-        <translation>如果收款地址收到小于%1的快钱，标签将变成红色。</translation>
+        <translation>如果收款地址收到小于%1的艾特币，标签将变成红色。</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -773,7 +773,7 @@ Address: %4
     </message>
     <message>
         <source>The entered address "%1" is not a valid Bitcoin address.</source>
-        <translation>您输入的“%1”不是有效的快钱地址。</translation>
+        <translation>您输入的“%1”不是有效的艾特币地址。</translation>
     </message>
     <message>
         <source>Could not unlock wallet.</source>
@@ -811,7 +811,7 @@ Address: %4
     <name>HelpMessageDialog</name>
     <message>
         <source>Bitcoin Core</source>
-        <translation>快钱核心</translation>
+        <translation>艾特币核心</translation>
     </message>
     <message>
         <source>version</source>
@@ -823,7 +823,7 @@ Address: %4
     </message>
     <message>
         <source>About Bitcoin Core</source>
-        <translation>关于快钱核心</translation>
+        <translation>关于艾特币核心</translation>
     </message>
     <message>
         <source>Command-line options</source>
@@ -871,15 +871,15 @@ Address: %4
     </message>
     <message>
         <source>Welcome to Bitcoin Core.</source>
-        <translation>欢迎使用 快钱核心 程序。</translation>
+        <translation>欢迎使用 艾特币核心 程序。</translation>
     </message>
     <message>
         <source>As this is the first time the program is launched, you can choose where Bitcoin Core will store its data.</source>
-        <translation>由于这是第一次运行 快钱核心 程序，您可以选择数据存储目录。</translation>
+        <translation>由于这是第一次运行 艾特币核心 程序，您可以选择数据存储目录。</translation>
     </message>
     <message>
         <source>Bitcoin Core will download and store a copy of the Bitcoin block chain. At least %1GB of data will be stored in this directory, and it will grow over time. The wallet will also be stored in this directory.</source>
-        <translation>快钱核心 程序会下载储存一份快钱数据块链(blockchain)。至少需要 %1 GB的存储空间，随着时间推移会需要更多的存储空间。钱包文件也储存在该目录。</translation>
+        <translation>艾特币核心 程序会下载储存一份艾特币数据块链(blockchain)。至少需要 %1 GB的存储空间，随着时间推移会需要更多的存储空间。钱包文件也储存在该目录。</translation>
     </message>
     <message>
         <source>Use the default data directory</source>
@@ -891,7 +891,7 @@ Address: %4
     </message>
     <message>
         <source>Bitcoin Core</source>
-        <translation>快钱核心</translation>
+        <translation>艾特币核心</translation>
     </message>
     <message>
         <source>Error</source>
@@ -941,11 +941,11 @@ Address: %4
     </message>
     <message>
         <source>Automatically start Bitcoin after logging in to the system.</source>
-        <translation>登录系统后自动开启快钱客户端</translation>
+        <translation>登录系统后自动开启艾特币客户端</translation>
     </message>
     <message>
         <source>&amp;Start Bitcoin on system login</source>
-        <translation>系统启动时运行快钱(&amp;S)</translation>
+        <translation>系统启动时运行艾特币(&amp;S)</translation>
     </message>
     <message>
         <source>Size of &amp;database cache</source>
@@ -969,7 +969,7 @@ Address: %4
     </message>
     <message>
         <source>Connect to the Bitcoin network through a SOCKS proxy.</source>
-        <translation>通过 SOCKS 代理连接到快钱网络。</translation>
+        <translation>通过 SOCKS 代理连接到艾特币网络。</translation>
     </message>
     <message>
         <source>&amp;Connect through SOCKS proxy (default proxy):</source>
@@ -1029,7 +1029,7 @@ Address: %4
     </message>
     <message>
         <source>Automatically open the Bitcoin client port on the router. This only works when your router supports UPnP and it is enabled.</source>
-        <translation>自动在路由器中打开快钱端口。只有当您的路由器开启了 UPnP 选项时此功能才有效。</translation>
+        <translation>自动在路由器中打开艾特币端口。只有当您的路由器开启了 UPnP 选项时此功能才有效。</translation>
     </message>
     <message>
         <source>Map port using &amp;UPnP</source>
@@ -1077,15 +1077,15 @@ Address: %4
     </message>
     <message>
         <source>The user interface language can be set here. This setting will take effect after restarting Bitcoin.</source>
-        <translation>在这里设置用户界面的语言。设置将在快钱客户端重启后生效。</translation>
+        <translation>在这里设置用户界面的语言。设置将在艾特币客户端重启后生效。</translation>
     </message>
     <message>
         <source>&amp;Unit to show amounts in:</source>
-        <translation>快钱金额单位(&amp;U)：</translation>
+        <translation>艾特币金额单位(&amp;U)：</translation>
     </message>
     <message>
         <source>Choose the default subdivision unit to show in the interface and when sending coins.</source>
-        <translation>选择快钱单位。</translation>
+        <translation>选择艾特币单位。</translation>
     </message>
     <message>
         <source>Whether to show coin control features or not.</source>
@@ -1136,7 +1136,7 @@ Address: %4
     </message>
     <message>
         <source>The displayed information may be out of date. Your wallet automatically synchronizes with the Bitcoin network after a connection is established, but this process has not completed yet.</source>
-        <translation>现在显示的消息可能是过期的. 在连接上快钱网络节点后，您的钱包将自动与网络同步，但是这个过程还没有完成。</translation>
+        <translation>现在显示的消息可能是过期的. 在连接上艾特币网络节点后，您的钱包将自动与网络同步，但是这个过程还没有完成。</translation>
     </message>
     <message>
         <source>Watch-only:</source>
@@ -1211,7 +1211,7 @@ Address: %4
     </message>
     <message>
         <source>Cannot start bitcoin: click-to-pay handler</source>
-        <translation>暂时无法启动快钱：点击支付功能</translation>
+        <translation>暂时无法启动艾特币：点击支付功能</translation>
     </message>
     <message>
         <source>Payment request fetch URL is invalid: %1</source>
@@ -1269,7 +1269,7 @@ Address: %4
     </message>
     <message>
         <source>Enter a Bitcoin address (e.g. %1)</source>
-        <translation>请输入一个快钱地址 (例如 %1)</translation>
+        <translation>请输入一个艾特币地址 (例如 %1)</translation>
     </message>
     <message>
         <source>%1 d</source>
@@ -1491,7 +1491,7 @@ Address: %4
     </message>
     <message>
         <source>Open the Bitcoin debug log file from the current data directory. This can take a few seconds for large log files.</source>
-        <translation>打开当前目录中的快钱调试日志文件。日志文件大的话可能要等上几秒钟。</translation>
+        <translation>打开当前目录中的艾特币调试日志文件。日志文件大的话可能要等上几秒钟。</translation>
     </message>
     <message>
         <source>Clear console</source>
@@ -1499,7 +1499,7 @@ Address: %4
     </message>
     <message>
         <source>Welcome to the Bitcoin RPC console.</source>
-        <translation>欢迎来到快钱的RPC控制台。</translation>
+        <translation>欢迎来到艾特币的RPC控制台。</translation>
     </message>
     <message>
         <source>Use up and down arrows to navigate history, and &lt;b&gt;Ctrl-L&lt;/b&gt; to clear screen.</source>
@@ -1574,7 +1574,7 @@ Address: %4
     </message>
     <message>
         <source>An optional message to attach to the payment request, which will be displayed when the request is opened. Note: The message will not be sent with the payment over the Bitcoin network.</source>
-        <translation>可在付款请求上备注一条信息，在打开付款请求时可以看到。注意：该消息不是通过快钱网络传送。</translation>
+        <translation>可在付款请求上备注一条信息，在打开付款请求时可以看到。注意：该消息不是通过艾特币网络传送。</translation>
     </message>
     <message>
         <source>An optional label to associate with the new receiving address.</source>
@@ -1723,7 +1723,7 @@ Address: %4
     <name>SendCoinsDialog</name>
     <message>
         <source>Send Coins</source>
-        <translation>发送快钱</translation>
+        <translation>发送艾特币</translation>
     </message>
     <message>
         <source>Coin Control Features</source>
@@ -1879,11 +1879,11 @@ Address: %4
     </message>
     <message>
         <source>The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>错误：该交易被拒绝！发生这种错误的原因可能是：钱包中的快钱已经被用掉，有可能您复制了wallet.dat钱包文件，然后用复制的钱包文件支付了快钱，但是这个钱包文件中没有记录。</translation>
+        <translation>错误：该交易被拒绝！发生这种错误的原因可能是：钱包中的艾特币已经被用掉，有可能您复制了wallet.dat钱包文件，然后用复制的钱包文件支付了艾特币，但是这个钱包文件中没有记录。</translation>
     </message>
     <message>
         <source>Warning: Invalid Bitcoin address</source>
-        <translation>警告：无效的快钱地址</translation>
+        <translation>警告：无效的艾特币地址</translation>
     </message>
     <message>
         <source>(no label)</source>
@@ -1962,7 +1962,7 @@ Address: %4
     </message>
     <message>
         <source>A message that was attached to the bitcoin: URI which will be stored with the transaction for your reference. Note: This message will not be sent over the Bitcoin network.</source>
-        <translation>FreeCoin:URI 附带的备注信息，将会和交易一起存储，备查。 注意：该消息不会通过快钱网络传输。</translation>
+        <translation>FreeCoin:URI 附带的备注信息，将会和交易一起存储，备查。 注意：该消息不会通过艾特币网络传输。</translation>
     </message>
     <message>
         <source>This is an unverified payment request.</source>
@@ -1981,7 +1981,7 @@ Address: %4
     <name>ShutdownWindow</name>
     <message>
         <source>Bitcoin Core is shutting down...</source>
-        <translation>快钱核心正在关机...</translation>
+        <translation>艾特币核心正在关机...</translation>
     </message>
     <message>
         <source>Do not shut down the computer until this window disappears.</source>
@@ -2032,7 +2032,7 @@ Address: %4
     </message>
     <message>
         <source>Sign the message to prove you own this Bitcoin address</source>
-        <translation>签名消息，证明这个快钱地址属于您。</translation>
+        <translation>签名消息，证明这个艾特币地址属于您。</translation>
     </message>
     <message>
         <source>Sign &amp;Message</source>
@@ -2056,7 +2056,7 @@ Address: %4
     </message>
     <message>
         <source>Verify the message to ensure it was signed with the specified Bitcoin address</source>
-        <translation>验证消息，确保消息是由指定的快钱地址签名过的。</translation>
+        <translation>验证消息，确保消息是由指定的艾特币地址签名过的。</translation>
     </message>
     <message>
         <source>Verify &amp;Message</source>
@@ -2123,11 +2123,11 @@ Address: %4
     <name>SplashScreen</name>
     <message>
         <source>Bitcoin Core</source>
-        <translation>快钱核心</translation>
+        <translation>艾特币核心</translation>
     </message>
     <message>
         <source>The Bitcoin Core developers</source>
-        <translation>快钱 Core 的开发者</translation>
+        <translation>艾特币 Core 的开发者</translation>
     </message>
     <message>
         <source>[testnet]</source>
@@ -2233,7 +2233,7 @@ Address: %4
     </message>
     <message>
         <source>Generated coins must mature %1 blocks before they can be spent. When you generated this block, it was broadcast to the network to be added to the block chain. If it fails to get into the chain, its state will change to "not accepted" and it won't be spendable. This may occasionally happen if another node generates a block within a few seconds of yours.</source>
-        <translation>生成的快钱在可以使用前必须有 %1 个成熟的区块。当您生成了此区块后，它将被广播到网络中以加入区块链。如果它未成功进入区块链，其状态将变更为“不接受”并且不可使用。这可能偶尔会发生，如果另一个节点比你早几秒钟成功生成一个区块。</translation>
+        <translation>生成的艾特币在可以使用前必须有 %1 个成熟的区块。当您生成了此区块后，它将被广播到网络中以加入区块链。如果它未成功进入区块链，其状态将变更为“不接受”并且不可使用。这可能偶尔会发生，如果另一个节点比你早几秒钟成功生成一个区块。</translation>
     </message>
     <message>
         <source>Debug information</source>
@@ -2527,7 +2527,7 @@ Address: %4
     <name>WalletModel</name>
     <message>
         <source>Send Coins</source>
-        <translation>发送快钱</translation>
+        <translation>发送艾特币</translation>
     </message>
 </context>
 <context>
@@ -2639,7 +2639,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Error: The transaction was rejected! This might happen if some of the coins in your wallet were already spent, such as if you used a copy of wallet.dat and coins were spent in the copy but not marked as spent here.</source>
-        <translation>错误：该交易被拒绝！发生这种错误的原因可能是：钱包中的快钱已经被用掉，有可能您复制了wallet.dat钱包文件，然后用复制的钱包文件支付了快钱，但是这个钱包文件中没有记录。</translation>
+        <translation>错误：该交易被拒绝！发生这种错误的原因可能是：钱包中的艾特币已经被用掉，有可能您复制了wallet.dat钱包文件，然后用复制的钱包文件支付了艾特币，但是这个钱包文件中没有记录。</translation>
     </message>
     <message>
         <source>Error: This transaction requires a transaction fee of at least %s because of its amount, complexity, or use of recently received funds!</source>
@@ -2663,7 +2663,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Unable to bind to %s on this computer. Bitcoin Core is probably already running.</source>
-        <translation>无法 %s的绑定到电脑上，快钱核心钱包可能已经在运行。</translation>
+        <translation>无法 %s的绑定到电脑上，艾特币核心钱包可能已经在运行。</translation>
     </message>
     <message>
         <source>Warning: -paytxfee is set very high! This is the transaction fee you will pay if you send a transaction.</source>
@@ -2823,7 +2823,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Cannot obtain a lock on data directory %s. Bitcoin Core is probably already running.</source>
-        <translation>无法获取数据目录的 %s. 快钱核心钱包可能已经在运行.</translation>
+        <translation>无法获取数据目录的 %s. 艾特币核心钱包可能已经在运行.</translation>
     </message>
     <message>
         <source>Execute command when a relevant alert is received or we see a really long fork (%s in cmd is replaced by message)</source>
@@ -2847,7 +2847,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Copyright (C) 2009-%i The Bitcoin Core Developers</source>
-        <translation>版权所有 (C) 2009-%i 快钱 Core 开发者</translation>
+        <translation>版权所有 (C) 2009-%i 艾特币 Core 开发者</translation>
     </message>
     <message>
         <source>Could not parse -rpcbind value %s as network address</source>
@@ -2855,7 +2855,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Error loading wallet.dat: Wallet requires newer version of Bitcoin Core</source>
-        <translation>加载wallet.dat错误：需要新版的快钱核心钱包</translation>
+        <translation>加载wallet.dat错误：需要新版的艾特币核心钱包</translation>
     </message>
     <message>
         <source>Error: Unsupported argument -tor found, use -onion.</source>
@@ -2867,7 +2867,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Initialization sanity check failed. Bitcoin Core is shutting down.</source>
-        <translation>初始化完整性检查失败。快钱 Core 即将关闭。</translation>
+        <translation>初始化完整性检查失败。艾特币 Core 即将关闭。</translation>
     </message>
     <message>
         <source>Invalid amount for -minrelaytxfee=&lt;amount&gt;: '%s'</source>
@@ -2899,7 +2899,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>RPC SSL options: (see the Bitcoin Wiki for SSL setup instructions)</source>
-        <translation>RPC SSL选项：(见有关快钱设置用于SSL说明的维基百科)</translation>
+        <translation>RPC SSL选项：(见有关艾特币设置用于SSL说明的维基百科)</translation>
     </message>
     <message>
         <source>RPC server options:</source>
@@ -2959,7 +2959,7 @@ rpcpassword=%s
     </message>
     <message>
         <source>Wallet needed to be rewritten: restart Bitcoin Core to complete</source>
-        <translation>钱包需要被改写：重新启动快钱核心钱包来完成</translation>
+        <translation>钱包需要被改写：重新启动艾特币核心钱包来完成</translation>
     </message>
     <message>
         <source>Warning</source>
