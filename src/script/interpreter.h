@@ -35,8 +35,8 @@ enum
     SCRIPT_VERIFY_P2SH      = (1U << 0),
 
     // Passing a non-strict-DER signature or one with undefined hashtype to a checksig operation causes script failure.
-    // Passing a pubkey that is not (0x04 + 64 bytes) or (0x02 or 0x03 + 32 bytes) to checksig causes that pubkey to be
-    // skipped (not softfork safe: this flag can widen the validity of OP_CHECKSIG OP_NOT).
+    // Evaluating a pubkey that is not (0x04 + 64 bytes) or (0x02 or 0x03 + 32 bytes) by checksig causes script failure.
+    // (softfork safe, but not used or intended as a consensus rule).
     SCRIPT_VERIFY_STRICTENC = (1U << 1),
 
     // Passing a non-strict-DER signature to a checksig operation causes script failure (softfork safe, BIP62 rule 1)
@@ -57,7 +57,18 @@ enum
     // any other push causes the script to fail (BIP62 rule 3).
     // In addition, whenever a stack element is interpreted as a number, it must be of minimal length (BIP62 rule 4).
     // (softfork safe)
-    SCRIPT_VERIFY_MINIMALDATA = (1U << 6)
+    SCRIPT_VERIFY_MINIMALDATA = (1U << 6),
+
+    // Discourage use of NOPs reserved for upgrades (NOP1-10)
+    //
+    // Provided so that nodes can avoid accepting or mining transactions
+    // containing executed NOP's whose meaning may change after a soft-fork,
+    // thus rendering the script invalid; with this flag set executing
+    // discouraged NOPs fails the script. This verification flag will never be
+    // a mandatory flag applied to scripts in a block. NOPs that are not
+    // executed, e.g.  within an unexecuted IF ENDIF block, are *not* rejected.
+    SCRIPT_VERIFY_DISCOURAGE_UPGRADABLE_NOPS  = (1U << 7)
+
 };
 
 uint256 SignatureHash(const CScript &scriptCode, const CTransaction& txTo, unsigned int nIn, int nHashType);

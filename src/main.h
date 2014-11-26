@@ -94,6 +94,8 @@ static const unsigned int MAX_HEADERS_RESULTS = 2000;
  *  degree of disordering of blocks on disk (which make reindexing and in the future perhaps pruning
  *  harder). We'll probably want to make this a per-peer adaptive value at some point. */
 static const unsigned int BLOCK_DOWNLOAD_WINDOW = 1024;
+/** Time to wait (in seconds) between writing blockchain state to disk. */
+static const unsigned int DATABASE_WRITE_INTERVAL = 3600;
 
 /** "reject" message codes **/
 static const unsigned char REJECT_MALFORMED = 0x01;
@@ -201,6 +203,8 @@ bool AbortNode(const std::string &msg, const std::string &userMessage="");
 bool GetNodeStateStats(NodeId nodeid, CNodeStateStats &stats);
 /** Increase a node's misbehavior score. */
 void Misbehaving(NodeId nodeid, int howmuch);
+/** Flush all state, indexes and buffers to disk. */
+void FlushStateToDisk();
 
 
 /** (try to) add transaction to memory pool **/
@@ -457,11 +461,18 @@ bool ReadBlockFromDisk(CBlock& block, const CBlockIndex* pindex);
 bool DisconnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& coins, bool* pfClean = NULL);
 
 // Apply the effects of this block (with given index) on the UTXO set represented by coins
-bool ConnectBlock(CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& coins, bool fJustCheck = false);
+bool ConnectBlock(const CBlock& block, CValidationState& state, CBlockIndex* pindex, CCoinsViewCache& coins, bool fJustCheck = false);
 
 // Context-independent validity checks
 bool CheckBlockHeader(const CBlockHeader& block, CValidationState& state, bool fCheckPOW = true);
 bool CheckBlock(const CBlock& block, CValidationState& state, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
+
+// Context-dependent validity checks
+bool ContextualCheckBlockHeader(const CBlockHeader& block, CValidationState& state, CBlockIndex *pindexPrev);
+bool ContextualCheckBlock(const CBlock& block, CValidationState& state, CBlockIndex *pindexPrev);
+
+// Check a block is completely valid from start to finish (only works on top of our current best block, with cs_main held)
+bool TestBlockValidity(CValidationState &state, const CBlock& block, CBlockIndex *pindexPrev, bool fCheckPOW = true, bool fCheckMerkleRoot = true);
 
 // Store block on disk
 // if dbp is provided, the file is known to already reside on disk
