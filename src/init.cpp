@@ -330,8 +330,6 @@ std::string HelpMessage(HelpMessageMode mode)
     strUsage += "  -printtoconsole        " + _("Send trace/debug info to console instead of debug.log file") + "\n";
     if (GetBoolArg("-help-debug", false))
     {
-        strUsage += "  -printblock=<hash>     " + _("Print block on startup, if found in block index") + "\n";
-        strUsage += "  -printblocktree        " + strprintf(_("Print block tree on startup (default: %u)"), 0) + "\n";
         strUsage += "  -printpriority         " + strprintf(_("Log transaction priority and fee per kB when mining blocks (default: %u)"), 0) + "\n";
         strUsage += "  -privdb                " + strprintf(_("Sets the DB_PRIVATE flag in the wallet db environment (default: %u)"), 1) + "\n";
         strUsage += "  -regtest               " + _("Enter regression test mode, which uses a special chain in which blocks can be solved instantly.") + "\n";
@@ -352,6 +350,7 @@ std::string HelpMessage(HelpMessageMode mode)
 
     strUsage += "\n" + _("RPC server options:") + "\n";
     strUsage += "  -server                " + _("Accept command line and JSON-RPC commands") + "\n";
+    strUsage += "  -rest                  " + strprintf(_("Accept public REST requests (default: %u)"), 0) + "\n";
     strUsage += "  -rpcbind=<addr>        " + _("Bind to given address to listen for JSON-RPC connections. Use [host]:port notation for IPv6. This option can be specified multiple times (default: bind to all interfaces)") + "\n";
     strUsage += "  -rpcuser=<user>        " + _("Username for JSON-RPC connections") + "\n";
     strUsage += "  -rpcpassword=<pw>      " + _("Password for JSON-RPC connections") + "\n";
@@ -1046,34 +1045,6 @@ bool AppInit2(boost::thread_group& threadGroup)
         return false;
     }
     LogPrintf(" block index %15dms\n", GetTimeMillis() - nStart);
-
-    if (GetBoolArg("-printblockindex", false) || GetBoolArg("-printblocktree", false))
-    {
-        PrintBlockTree();
-        return false;
-    }
-
-    if (mapArgs.count("-printblock"))
-    {
-        string strMatch = mapArgs["-printblock"];
-        int nFound = 0;
-        for (BlockMap::iterator mi = mapBlockIndex.begin(); mi != mapBlockIndex.end(); ++mi)
-        {
-            uint256 hash = (*mi).first;
-            if (boost::algorithm::starts_with(hash.ToString(), strMatch))
-            {
-                CBlockIndex* pindex = (*mi).second;
-                CBlock block;
-                ReadBlockFromDisk(block, pindex);
-                block.BuildMerkleTree();
-                LogPrintf("%s\n", block.ToString());
-                nFound++;
-            }
-        }
-        if (nFound == 0)
-            LogPrintf("No blocks matching %s were found\n", strMatch);
-        return false;
-    }
 
     boost::filesystem::path est_path = GetDataDir() / FEE_ESTIMATES_FILENAME;
     CAutoFile est_filein(fopen(est_path.string().c_str(), "rb"), SER_DISK, CLIENT_VERSION);

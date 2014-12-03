@@ -177,8 +177,6 @@ bool InitBlockIndex();
 bool LoadBlockIndex();
 /** Unload database information */
 void UnloadBlockIndex();
-/** Print the loaded block tree */
-void PrintBlockTree();
 /** Process protocol messages received from a given node */
 bool ProcessMessages(CNode* pfrom);
 /** Send queued protocol messages to be sent to a give node */
@@ -608,6 +606,12 @@ public:
 
 /** Find the last common block between the parameter chain and a locator. */
 CBlockIndex* FindForkInGlobalIndex(const CChain& chain, const CBlockLocator& locator);
+
+/** Mark a block as invalid. */
+bool InvalidateBlock(CValidationState& state, CBlockIndex *pindex);
+
+/** Remove invalidity status from a block and its descendants. */
+bool ReconsiderBlock(CValidationState& state, CBlockIndex *pindex);
 
 /** The currently-connected chain of blocks. */
 extern CChain chainActive;
