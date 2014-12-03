@@ -1218,15 +1218,14 @@ bool IsInitialBlockDownload()
     LOCK(cs_main);
     if (fImporting || fReindex || chainActive.Height() < Checkpoints::GetTotalBlocksEstimate())
         return true;
-    static int64_t nLastUpdate;
-    static CBlockIndex* pindexLastBest;
-    if (chainActive.Tip() != pindexLastBest)
-    {
-        pindexLastBest = chainActive.Tip();
-        nLastUpdate = GetTime();
-    }
-    return (GetTime() - nLastUpdate < 10 &&
-            chainActive.Tip()->GetBlockTime() < GetTime() - 24 * 60 * 60);
+    static bool lockIBDState = false;
+    if (lockIBDState)
+        return false;
+    bool state = (chainActive.Height() < pindexBestHeader->nHeight - 24 * 6 ||
+            pindexBestHeader->GetBlockTime() < GetTime() - 24 * 60 * 60);
+    if (!state)
+        lockIBDState = true;
+    return state;
 }
 
 bool fLargeWorkForkFound = false;
@@ -2027,6 +2026,18 @@ static CBlockIndex* FindMostWorkChain() {
     } while(true);
 }
 
+// Delete all entries in setBlockIndexCandidates that are worse than the current tip.
+static void PruneBlockIndexCandidates() {
+    // Note that we can't delete the current block itself, as we may need to return to it later in case a
+    // reorganization to a better block fails.
+    std::set<CBlockIndex*, CBlockIndexWorkComparator>::iterator it = setBlockIndexCandidates.begin();
+    while (it != setBlockIndexCandidates.end() && setBlockIndexCandidates.value_comp()(*it, chainActive.Tip())) {
+        setBlockIndexCandidates.erase(it++);
+    }
+    // Either the current tip or a successor of it we're working towards is left in setBlockIndexCandidates.
+    assert(!setBlockIndexCandidates.empty());
+}
+
 // Try to make some progress towards making pindexMostWork the active block.
 // pblock is either NULL or a pointer to a CBlock corresponding to pindexMostWork.
 static bool ActivateBestChainStep(CValidationState &state, CBlockIndex *pindexMostWork, CBlock *pblock) {
@@ -2074,15 +2085,7 @@ static bool ActivateBestChainStep(CValidationState &state, CBlockIndex *pindexMo
                 return false;
             }
         } else {
-            // Delete all entries in setBlockIndexCandidates that are worse than our new current block.
-            // Note that we can't delete the current block itself, as we may need to return to it later in case a
-            // reorganization to a better block fails.
-            std::set<CBlockIndex*, CBlockIndexWorkComparator>::iterator it = setBlockIndexCandidates.begin();
-            while (setBlockIndexCandidates.value_comp()(*it, chainActive.Tip())) {
-                setBlockIndexCandidates.erase(it++);
-            }
-            // Either the current tip or a successor of it we're working towards is left in setBlockIndexCandidates.
-            assert(!setBlockIndexCandidates.empty());
+            PruneBlockIndexCandidates();
             if (!pindexOldTip || chainActive.Tip()->nChainWork > pindexOldTip->nChainWork) {
                 // We're in a better position than we were. Return temporarily to release the lock.
                 fContinue = false;
@@ -2148,6 +2151,73 @@ bool ActivateBestChain(CValidationState &state, CBlock *pblock) {
         return false;
     }
 
+    return true;
+}
+
+bool InvalidateBlock(CValidationState& state, CBlockIndex *pindex) {
+    AssertLockHeld(cs_main);
+
+    // Mark the block itself as invalid.
+    pindex->nStatus |= BLOCK_FAILED_VALID;
+    setDirtyBlockIndex.insert(pindex);
+    setBlockIndexCandidates.erase(pindex);
+
+    while (chainActive.Contains(pindex)) {
+        CBlockIndex *pindexWalk = chainActive.Tip();
+        pindexWalk->nStatus |= BLOCK_FAILED_CHILD;
+        setDirtyBlockIndex.insert(pindexWalk);
+        setBlockIndexCandidates.erase(pindexWalk);
+        // ActivateBestChain considers blocks already in chainActive
+        // unconditionally valid already, so force disconnect away from it.
+        if (!DisconnectTip(state)) {
+            return false;
+        }
+    }
+
+    // The resulting new best tip may not be in setBlockIndexCandidates anymore, so
+    // add them again.
+    BlockMap::iterator it = mapBlockIndex.begin();
+    while (it != mapBlockIndex.end()) {
+        if (it->second->IsValid(BLOCK_VALID_TRANSACTIONS) && it->second->nChainTx && setBlockIndexCandidates.value_comp()(chainActive.Tip(), it->second)) {
+            setBlockIndexCandidates.insert(pindex);
+        }
+        it++;
+    }
+
+    InvalidChainFound(pindex);
+    return true;
+}
+
+bool ReconsiderBlock(CValidationState& state, CBlockIndex *pindex) {
+    AssertLockHeld(cs_main);
+
+    int nHeight = pindex->nHeight;
+
+    // Remove the invalidity flag from this block and all its descendants.
+    BlockMap::iterator it = mapBlockIndex.begin();
+    while (it != mapBlockIndex.end()) {
+        if (!it->second->IsValid() && it->second->GetAncestor(nHeight) == pindex) {
+            it->second->nStatus &= ~BLOCK_FAILED_MASK;
+            setDirtyBlockIndex.insert(it->second);
+            if (it->second->IsValid(BLOCK_VALID_TRANSACTIONS) && it->second->nChainTx && setBlockIndexCandidates.value_comp()(chainActive.Tip(), it->second)) {
+                setBlockIndexCandidates.insert(it->second);
+            }
+            if (it->second == pindexBestInvalid) {
+                // Reset invalid block marker if it was pointing to one of those.
+                pindexBestInvalid = NULL;
+            }
+        }
+        it++;
+    }
+
+    // Remove the invalidity flag from all ancestors too.
+    while (pindex != NULL) {
+        if (pindex->nStatus & BLOCK_FAILED_MASK) {
+            pindex->nStatus &= ~BLOCK_FAILED_MASK;
+            setDirtyBlockIndex.insert(pindex);
+        }
+        pindex = pindex->pprev;
+    }
     return true;
 }
 
@@ -2975,6 +3045,9 @@ bool static LoadBlockIndexDB()
     if (it == mapBlockIndex.end())
         return true;
     chainActive.SetTip(it->second);
+
+    PruneBlockIndexCandidates();
+
     LogPrintf("LoadBlockIndexDB(): hashBestChain=%s height=%d date=%s progress=%f\n",
         chainActive.Tip()->GetBlockHash().ToString(), chainActive.Height(),
         DateTimeStrFormat("%Y-%m-%d %H:%M:%S", chainActive.Tip()->GetBlockTime()),
@@ -3125,75 +3198,6 @@ bool InitBlockIndex() {
 }
 
 
-
-void PrintBlockTree()
-{
-    AssertLockHeld(cs_main);
-    // pre-compute tree structure
-    map<CBlockIndex*, vector<CBlockIndex*> > mapNext;
-    for (BlockMap::iterator mi = mapBlockIndex.begin(); mi != mapBlockIndex.end(); ++mi)
-    {
-        CBlockIndex* pindex = (*mi).second;
-        mapNext[pindex->pprev].push_back(pindex);
-        // test
-        //while (rand() % 3 == 0)
-        //    mapNext[pindex->pprev].push_back(pindex);
-    }
-
-    vector<pair<int, CBlockIndex*> > vStack;
-    vStack.push_back(make_pair(0, chainActive.Genesis()));
-
-    int nPrevCol = 0;
-    while (!vStack.empty())
-    {
-        int nCol = vStack.back().first;
-        CBlockIndex* pindex = vStack.back().second;
-        vStack.pop_back();
-
-        // print split or gap
-        if (nCol > nPrevCol)
-        {
-            for (int i = 0; i < nCol-1; i++)
-                LogPrintf("| ");
-            LogPrintf("|\\\n");
-        }
-        else if (nCol < nPrevCol)
-        {
-            for (int i = 0; i < nCol; i++)
-                LogPrintf("| ");
-            LogPrintf("|\n");
-       }
-        nPrevCol = nCol;
-
-        // print columns
-        for (int i = 0; i < nCol; i++)
-            LogPrintf("| ");
-
-        // print item
-        CBlock block;
-        ReadBlockFromDisk(block, pindex);
-        LogPrintf("%d (blk%05u.dat:0x%x)  %s  tx %u\n",
-            pindex->nHeight,
-            pindex->GetBlockPos().nFile, pindex->GetBlockPos().nPos,
-            DateTimeStrFormat("%Y-%m-%d %H:%M:%S", block.GetBlockTime()),
-            block.vtx.size());
-
-        // put the main time-chain first
-        vector<CBlockIndex*>& vNext = mapNext[pindex];
-        for (unsigned int i = 0; i < vNext.size(); i++)
-        {
-            if (chainActive.Next(vNext[i]))
-            {
-                swap(vNext[0], vNext[i]);
-                break;
-            }
-        }
-
-        // iterate children
-        for (unsigned int i = 0; i < vNext.size(); i++)
-            vStack.push_back(make_pair(nCol+i, vNext[i]));
-    }
-}
 
 bool LoadExternalBlockFile(FILE* fileIn, CDiskBlockPos *dbp)
 {
