@@ -33,9 +33,37 @@ echo Step 2: replace locale text
 	sed -i -e "s/FastCoin/$AnyCoin/g" configure.ac
 	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/locale/bitcoin_en.ts
 	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/guiconstants.h
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/res/bitcoin-qt-res.rc
 	sed -i -e "s/快钱/$AnyCoin_zh_CN/g" src/qt/locale/bitcoin_zh_CN.ts
-	sed -i -e "s/FastCoin/$AnyCoin/g" src/util.cpp
-	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/util.cpp
+
 	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/bitcoinunits.cpp
 	sed -i -e "s/FTC/$AnyCoinUintUpper/g" src/qt/bitcoinunits.cpp
 	sed -i -e "s/ftc/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
+
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/util.cpp	
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/bitcoin-cli.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/clientversion.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/init.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/miner.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcdump.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcmining.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcmisc.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcnet.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcprotocol.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcrawtransaction.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcserver.cpp
+	sed -i -e "s/FastCoin/$AnyCoin/g" src/rpcwallet.cpp
+	
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/util.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/bitcoin-cli.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/clientversion.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/init.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/miner.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcdump.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcmining.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcmisc.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcnet.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcprotocol.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcrawtransaction.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcserver.cpp
+	sed -i -e "s/fastcoin/$AnyCoin_Lower/g" src/rpcwallet.cpp
