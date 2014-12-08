@@ -12,7 +12,7 @@
 #include "addrman.h"
 #include "chainparams.h"
 #include "clientversion.h"
-#include "core/transaction.h"
+#include "primitives/transaction.h"
 #include "ui_interface.h"
 
 #ifdef WIN32
@@ -399,7 +399,9 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest)
 
     // Connect
     SOCKET hSocket;
-    if (pszDest ? ConnectSocketByName(addrConnect, hSocket, pszDest, Params().GetDefaultPort()) : ConnectSocket(addrConnect, hSocket))
+    bool proxyConnectionFailed = false;
+    if (pszDest ? ConnectSocketByName(addrConnect, hSocket, pszDest, Params().GetDefaultPort(), nConnectTimeout, &proxyConnectionFailed) :
+                  ConnectSocket(addrConnect, hSocket, nConnectTimeout, &proxyConnectionFailed))
     {
         addrman.Attempt(addrConnect);
 
@@ -415,6 +417,10 @@ CNode* ConnectNode(CAddress addrConnect, const char *pszDest)
         pnode->nTimeConnected = GetTime();
 
         return pnode;
+    } else if (!proxyConnectionFailed) {
+        // If connecting to the node failed, and failure is not caused by a problem connecting to
+        // the proxy, mark this as an attempt.
+        addrman.Attempt(addrConnect);
     }
 
     return NULL;
