@@ -22,6 +22,13 @@ BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPP
 
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 
+BITCOIN_INCLUDES += -I$(srcdir)/crypto/KeccakCodePackage/Common/ \
+					-I$(srcdir)/crypto/KeccakCodePackage/Constructions/ \
+					-I$(srcdir)/crypto/KeccakCodePackage/Modes/ \
+					-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/ \
+					-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/ \
+					-I$(srcdir)/crypto/KeccakCodePackage/SnP/
+					
 LIBBITCOIN_SERVER=libbitcoin_server.a
 LIBBITCOIN_WALLET=libbitcoin_wallet.a
 LIBBITCOIN_COMMON=libbitcoin_common.a
@@ -152,6 +159,15 @@ JSON_H = \
   json/json_spirit_writer.h \
   json/json_spirit_writer_template.h
 
+KECCAK_HEADERS =crypto/KeccakCodePackage/Common/brg_endian.h \
+				crypto/KeccakCodePackage/Constructions/KeccakDuplex.h \
+				crypto/KeccakCodePackage/Constructions/KeccakSponge.h \
+				crypto/KeccakCodePackage/Modes/KeccakHash.h \
+				crypto/KeccakCodePackage/SnP/KeccakF-1600/KeccakF-1600-interface.h \
+				crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/KeccakF-reference.h \
+				crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/SnP-interface.h \
+				crypto/KeccakCodePackage/SnP/SnP-FBWL-default.h   
+  
 obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
 	@$(top_srcdir)/share/genbuild.sh $(abs_top_builddir)/src/obj/build.h \
@@ -220,6 +236,14 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha1.h \
   crypto/scrypt.h \
   crypto/scrypt.cpp \
+  crypto/keccak256.h \
+  crypto/keccak256.cpp \
+  crypto/KeccakCodePackage/Constructions/KeccakDuplex.c \
+  crypto/KeccakCodePackage/Constructions/KeccakSponge.c \
+  crypto/KeccakCodePackage/Modes/KeccakHash.c \
+  crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/KeccakF-1600-reference.c \
+  crypto/KeccakCodePackage/SnP/SnP-FBWL-default.c \
+  $(KECCAK_HEADERS) \
   crypto/ripemd160.h
 
 # univalue JSON library
