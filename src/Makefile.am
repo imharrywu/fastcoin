@@ -22,12 +22,12 @@ BITCOIN_INCLUDES=-I$(builddir) -I$(builddir)/obj $(BOOST_CPPFLAGS) $(LEVELDB_CPP
 
 BITCOIN_INCLUDES += -I$(srcdir)/secp256k1/include
 
-BITCOIN_INCLUDES += -I$(srcdir)/crypto/KeccakCodePackage/Common/ \
-					-I$(srcdir)/crypto/KeccakCodePackage/Constructions/ \
-					-I$(srcdir)/crypto/KeccakCodePackage/Modes/ \
-					-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/ \
-					-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/ \
-					-I$(srcdir)/crypto/KeccakCodePackage/SnP/
+KECCAK_INCLUDES = -I$(srcdir)/crypto/KeccakCodePackage/Common/ \
+				-I$(srcdir)/crypto/KeccakCodePackage/Constructions/ \
+				-I$(srcdir)/crypto/KeccakCodePackage/Modes/ \
+				-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/ \
+				-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/ \
+				-I$(srcdir)/crypto/KeccakCodePackage/SnP/
 					
 LIBBITCOIN_SERVER=libbitcoin_server.a
 LIBBITCOIN_WALLET=libbitcoin_wallet.a
@@ -218,7 +218,7 @@ libbitcoin_wallet_a_SOURCES = \
   $(BITCOIN_CORE_H)
 
 # crypto primitives library
-crypto_libbitcoin_crypto_a_CPPFLAGS = $(BITCOIN_CONFIG_INCLUDES)
+crypto_libbitcoin_crypto_a_CPPFLAGS = $(BITCOIN_CONFIG_INCLUDES) $(KECCAK_INCLUDES)
 crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/sha1.cpp \
   crypto/sha256.cpp \
@@ -384,6 +384,13 @@ libbitcoinconsensus_la_SOURCES = \
   crypto/sha256.cpp \
   crypto/sha512.cpp \
   crypto/ripemd160.cpp \
+  crypto/scrypt.cpp \
+  crypto/keccak256.cpp \
+  crypto/KeccakCodePackage/Constructions/KeccakDuplex.c \
+  crypto/KeccakCodePackage/Constructions/KeccakSponge.c \
+  crypto/KeccakCodePackage/Modes/KeccakHash.c \
+  crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/KeccakF-1600-reference.c \
+  crypto/KeccakCodePackage/SnP/SnP-FBWL-default.c \
   eccryptoverify.cpp \
   ecwrapper.cpp \
   hash.cpp \
@@ -401,7 +408,7 @@ endif
 
 libbitcoinconsensus_la_LDFLAGS = -no-undefined $(RELDFLAGS)
 libbitcoinconsensus_la_LIBADD = $(CRYPTO_LIBS)
-libbitcoinconsensus_la_CPPFLAGS = $(CRYPTO_CFLAGS) -I$(builddir)/obj -DBUILD_BITCOIN_INTERNAL
+libbitcoinconsensus_la_CPPFLAGS = $(CRYPTO_CFLAGS) $(KECCAK_INCLUDES) -I$(builddir)/obj -DBUILD_BITCOIN_INTERNAL
 if USE_LIBSECP256K1
 libbitcoinconsensus_la_LIBADD += secp256k1/libsecp256k1.la
 endif
