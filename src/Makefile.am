@@ -159,7 +159,7 @@ JSON_H = \
   json/json_spirit_writer.h \
   json/json_spirit_writer_template.h
 
-KECCAK_HEADERS =crypto/KeccakCodePackage/Common/brg_endian.h \
+KECCAK_H = crypto/KeccakCodePackage/Common/brg_endian.h \
 				crypto/KeccakCodePackage/Constructions/KeccakDuplex.h \
 				crypto/KeccakCodePackage/Constructions/KeccakSponge.h \
 				crypto/KeccakCodePackage/Modes/KeccakHash.h \
@@ -243,7 +243,7 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/KeccakCodePackage/Modes/KeccakHash.c \
   crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/KeccakF-1600-reference.c \
   crypto/KeccakCodePackage/SnP/SnP-FBWL-default.c \
-  $(KECCAK_HEADERS) \
+  $(KECCAK_H) \
   crypto/ripemd160.h
 
 # univalue JSON library
