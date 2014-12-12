@@ -29,7 +29,6 @@
 
 #include "keccak256.h"
 #include "KeccakCodePackage/Modes/KeccakHash.h"
-#include "util.h"
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>

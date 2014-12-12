@@ -1,5 +1,5 @@
-#ifndef SCRYPT_H
-#define SCRYPT_H
+#ifndef BITCOIN_CRYPTO_KECCAK_H
+#define BITCOIN_CRYPTO_KECCAK_H
 #include <stdlib.h>
 #include <stdint.h>
 #include <vector>
