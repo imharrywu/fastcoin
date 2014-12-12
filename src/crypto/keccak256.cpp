@@ -28,7 +28,13 @@
  */
 
 #include "keccak256.h"
-#include "KeccakCodePackage/Modes/KeccakHash.h"
+#ifdef __cplusplus
+extern "C" {
+#endif
+	#include "KeccakCodePackage/Modes/KeccakHash.h"
+#ifdef __cplusplus
+};
+#endif
 #include <stdlib.h>
 #include <stdint.h>
 #include <string.h>
@@ -48,7 +54,10 @@ CKeccak_256& CKeccak_256::Write(const unsigned char* data, size_t len)
 
 void CKeccak_256::Finalize(unsigned char hash[OUTPUT_SIZE])
 {
-    
+    Keccak_HashInstance   hashInst;
+	Keccak_HashInitialize(&hashInst, 1088, 512, 256, 0x06);
+	Keccak_HashUpdate(&hashInst, (BitSequence *)&m_vchBuf[0], m_vchBuf.size() * 8);
+	Keccak_HashFinal(&hashInst, hash);
 }
 
 CKeccak_256& CKeccak_256::Reset()
