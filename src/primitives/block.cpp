@@ -46,6 +46,18 @@ uint256 CBlockHeader::ComputePowHash(uint32_t nNonce) const
         /**
          *  Scrypt+SHA256 PoW
          */
+    }else if (nVersion == 5){
+        /**
+         *  SHA3-256(that is Keccak(1088,512,256)) PoW
+         */
+        CKeccakHash256Pow hasher;
+        CDataStream ss(SER_NETWORK, PROTOCOL_VERSION);
+        ss << *this;
+        assert(ss.size() == 80);
+        hasher.Write((unsigned char*)&ss[0], 76);
+        uint256 powHash;
+        CKeccakHash256Pow(hasher).Write((unsigned char*)&nNonce, 4).Finalize((unsigned char*)&powHash);
+        return powHash;
     }else{
         // Abort, unknown block version.
         assert(false);

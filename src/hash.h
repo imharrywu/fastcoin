@@ -9,6 +9,7 @@
 #include "crypto/ripemd160.h"
 #include "crypto/sha256.h"
 #include "crypto/scrypt.h"
+#include "crypto/keccak256.h"
 #include "serialize.h"
 #include "uint256.h"
 #include "version.h"
@@ -107,6 +108,29 @@ public:
 
     CScryptHash256Pow& Reset() {
         scrypt.Reset();
+        return *this;
+    }
+};
+
+/** A hasher class for Bitcoin's 256-bit PoW hash (Single Keccak-256). */
+class CKeccakHash256Pow
+{
+private:
+    CKeccak_256 keccak;
+public:
+    static const size_t OUTPUT_SIZE = CKeccak_256::OUTPUT_SIZE;
+
+    void Finalize(unsigned char hash[OUTPUT_SIZE]) {
+        keccak.Finalize(hash);
+    }
+
+    CKeccakHash256Pow& Write(const unsigned char *data, size_t len) {
+        keccak.Write(data, len);
+        return *this;
+    }
+
+    CKeccakHash256Pow& Reset() {
+        keccak.Reset();
         return *this;
     }
 };
