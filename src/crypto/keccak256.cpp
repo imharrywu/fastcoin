@@ -95,12 +95,12 @@ typedef struct {
     unsigned char delimitedSuffix;
 } Keccak_HashInstance;
 
-const UINT8 KeccakF_RotationConstants[25] =
+static const UINT8 KeccakF_RotationConstants[25] =
 {
      1,  3,  6, 10, 15, 21, 28, 36, 45, 55,  2, 14, 27, 41, 56,  8, 25, 43, 62, 18, 39, 61, 20, 44
 };
 
-const UINT8 KeccakF_PiLane[25] =
+static const UINT8 KeccakF_PiLane[25] =
 {
     10,  7, 11, 17, 18,  3,  5, 16,  8, 21, 24,  4, 15, 23, 19, 13, 12,  2, 20, 14, 22,  9,  6,  1
 };
@@ -108,8 +108,6 @@ const UINT8 KeccakF_PiLane[25] =
 void KeccakF1600_Initialize( void )
 {
 }
-
-/* ---------------------------------------------------------------- */
 
 void KeccakF1600_StateInitialize(void *argState)
 {
@@ -250,7 +248,6 @@ size_t SnP_FBWL_Squeeze_Default(void *state, unsigned int laneCount, unsigned ch
     }
     return processed;
 }
-
 
 int Keccak_SpongeInitialize(Keccak_SpongeInstance *instance, unsigned int rate, unsigned int capacity)
 {
@@ -409,8 +406,6 @@ HashReturn Keccak_HashInitialize(Keccak_HashInstance *instance, unsigned int rat
     instance->delimitedSuffix = delimitedSuffix;
     return SUCCESS;
 }
-
-/* ---------------------------------------------------------------- */
 
 HashReturn Keccak_HashUpdate(Keccak_HashInstance *instance, const BitSequence *data, DataLength databitlen)
 {
