@@ -26,9 +26,8 @@ KECCAK_INCLUDES = -I$(srcdir)/crypto/KeccakCodePackage/Common/ \
 				-I$(srcdir)/crypto/KeccakCodePackage/Constructions/ \
 				-I$(srcdir)/crypto/KeccakCodePackage/Modes/ \
 				-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/ \
-				-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/ \
-				-I$(srcdir)/crypto/KeccakCodePackage/SnP/ \
-				-I$(srcdir)/crypto/KeccakCodePackage/Tests/
+				-I$(srcdir)/crypto/KeccakCodePackage/SnP/KeccakF-1600/Compact64/ \
+				-I$(srcdir)/crypto/KeccakCodePackage/SnP/ 
 					
 LIBBITCOIN_SERVER=libbitcoin_server.a
 LIBBITCOIN_WALLET=libbitcoin_wallet.a
@@ -165,10 +164,8 @@ KECCAK_H = crypto/KeccakCodePackage/Common/brg_endian.h \
 				crypto/KeccakCodePackage/Constructions/KeccakSponge.h \
 				crypto/KeccakCodePackage/Modes/KeccakHash.h \
 				crypto/KeccakCodePackage/SnP/KeccakF-1600/KeccakF-1600-interface.h \
-				crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/KeccakF-reference.h \
-				crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/SnP-interface.h \
-				crypto/KeccakCodePackage/SnP/SnP-FBWL-default.h \
-				crypto/KeccakCodePackage/Tests/displayIntermediateValues.h 
+				crypto/KeccakCodePackage/SnP/KeccakF-1600/Compact64/SnP-interface.h \
+				crypto/KeccakCodePackage/SnP/SnP-FBWL-default.h 
   
 obj/build.h: FORCE
 	@$(MKDIR_P) $(builddir)/obj
@@ -243,9 +240,8 @@ crypto_libbitcoin_crypto_a_SOURCES = \
   crypto/KeccakCodePackage/Constructions/KeccakDuplex.c \
   crypto/KeccakCodePackage/Constructions/KeccakSponge.c \
   crypto/KeccakCodePackage/Modes/KeccakHash.c \
-  crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/KeccakF-1600-reference.c \
+  crypto/KeccakCodePackage/SnP/KeccakF-1600/Compact64/KeccakF-1600-compact64.c \
   crypto/KeccakCodePackage/SnP/SnP-FBWL-default.c \
-  crypto/KeccakCodePackage/Tests/displayIntermediateValues.c \
   $(KECCAK_H) \
   crypto/ripemd160.h
 
@@ -392,9 +388,8 @@ libbitcoinconsensus_la_SOURCES = \
   crypto/KeccakCodePackage/Constructions/KeccakDuplex.c \
   crypto/KeccakCodePackage/Constructions/KeccakSponge.c \
   crypto/KeccakCodePackage/Modes/KeccakHash.c \
-  crypto/KeccakCodePackage/SnP/KeccakF-1600/Reference/KeccakF-1600-reference.c \
+  crypto/KeccakCodePackage/SnP/KeccakF-1600/Compact64/KeccakF-1600-compact64.c \
   crypto/KeccakCodePackage/SnP/SnP-FBWL-default.c \
-  crypto/KeccakCodePackage/Tests/displayIntermediateValues.c \
   eccryptoverify.cpp \
   ecwrapper.cpp \
   hash.cpp \
