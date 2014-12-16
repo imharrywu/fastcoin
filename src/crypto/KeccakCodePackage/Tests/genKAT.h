@@ -1,1 +1,0 @@
-int genKAT_main();
