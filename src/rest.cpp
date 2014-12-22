@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2009-2014 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -89,9 +89,72 @@ static bool ParseHashStr(const string& strReq, uint256& v)
     return true;
 }
 
+static bool rest_headers(AcceptedConnection* conn,
+                         const std::string& strReq,
+                         const std::map<std::string, std::string>& mapHeaders,
+                         bool fRun)
+{
+    vector<string> params;
+    enum RetFormat rf = ParseDataFormat(params, strReq);
+    vector<string> path;
+    boost::split(path, params[0], boost::is_any_of("/"));
+
+    if (path.size() != 2)
+        throw RESTERR(HTTP_BAD_REQUEST, "No header count specified. Use /rest/headers/<count>/<hash>.<ext>.");
+
+    long count = strtol(path[0].c_str(), NULL, 10);
+    if (count < 1 || count > 2000)
+        throw RESTERR(HTTP_BAD_REQUEST, "Header count out of range: " + path[0]);
+
+    string hashStr = path[1];
+    uint256 hash;
+    if (!ParseHashStr(hashStr, hash))
+        throw RESTERR(HTTP_BAD_REQUEST, "Invalid hash: " + hashStr);
+
+    std::vector<CBlockHeader> headers;
+    headers.reserve(count);
+    {
+        LOCK(cs_main);
+        BlockMap::const_iterator it = mapBlockIndex.find(hash);
+        const CBlockIndex *pindex = (it != mapBlockIndex.end()) ? it->second : NULL;
+        while (pindex != NULL && chainActive.Contains(pindex)) {
+            headers.push_back(pindex->GetBlockHeader());
+            if (headers.size() == (unsigned long)count)
+                break;
+            pindex = chainActive.Next(pindex);
+        }
+    }
+
+    CDataStream ssHeader(SER_NETWORK, PROTOCOL_VERSION);
+    BOOST_FOREACH(const CBlockHeader &header, headers) {
+        ssHeader << header;
+    }
+
+    switch (rf) {
+    case RF_BINARY: {
+        string binaryHeader = ssHeader.str();
+        conn->stream() << HTTPReplyHeader(HTTP_OK, fRun, binaryHeader.size(), "application/octet-stream") << binaryHeader << std::flush;
+        return true;
+    }
+
+    case RF_HEX: {
+        string strHex = HexStr(ssHeader.begin(), ssHeader.end()) + "\n";
+        conn->stream() << HTTPReply(HTTP_OK, strHex, fRun, false, "text/plain") << std::flush;
+        return true;
+    }
+
+    default: {
+        throw RESTERR(HTTP_NOT_FOUND, "output format not found (available: .bin, .hex)");
+    }
+    }
+
+    // not reached
+    return true; // continue to process further HTTP reqs on this cxn
+}
+
 static bool rest_block(AcceptedConnection* conn,
-                       string& strReq,
-                       map<string, string>& mapHeaders,
+                       const std::string& strReq,
+                       const std::map<std::string, std::string>& mapHeaders,
                        bool fRun,
                        bool showTxDetails)
 {
@@ -148,24 +211,24 @@ static bool rest_block(AcceptedConnection* conn,
 }
 
 static bool rest_block_extended(AcceptedConnection* conn,
-                       string& strReq,
-                       map<string, string>& mapHeaders,
+                       const std::string& strReq,
+                       const std::map<std::string, std::string>& mapHeaders,
                        bool fRun)
 {
     return rest_block(conn, strReq, mapHeaders, fRun, true);
 }
 
 static bool rest_block_notxdetails(AcceptedConnection* conn,
-                       string& strReq,
-                       map<string, string>& mapHeaders,
+                       const std::string& strReq,
+                       const std::map<std::string, std::string>& mapHeaders,
                        bool fRun)
 {
     return rest_block(conn, strReq, mapHeaders, fRun, false);
 }
 
 static bool rest_tx(AcceptedConnection* conn,
-                    string& strReq,
-                    map<string, string>& mapHeaders,
+                    const std::string& strReq,
+                    const std::map<std::string, std::string>& mapHeaders,
                     bool fRun)
 {
     vector<string> params;
@@ -217,18 +280,19 @@ static bool rest_tx(AcceptedConnection* conn,
 static const struct {
     const char* prefix;
     bool (*handler)(AcceptedConnection* conn,
-                    string& strURI,
-                    map<string, string>& mapHeaders,
+                    const std::string& strURI,
+                    const std::map<std::string, std::string>& mapHeaders,
                     bool fRun);
 } uri_prefixes[] = {
       {"/rest/tx/", rest_tx},
       {"/rest/block/notxdetails/", rest_block_notxdetails},
       {"/rest/block/", rest_block_extended},
+      {"/rest/headers/", rest_headers},
 };
 
 bool HTTPReq_REST(AcceptedConnection* conn,
-                  string& strURI,
-                  map<string, string>& mapHeaders,
+                  const std::string& strURI,
+                  const std::map<std::string, std::string>& mapHeaders,
                   bool fRun)
 {
     try {
@@ -243,7 +307,7 @@ bool HTTPReq_REST(AcceptedConnection* conn,
                 return uri_prefixes[i].handler(conn, strReq, mapHeaders, fRun);
             }
         }
-    } catch (RestErr& re) {
+    } catch (const RestErr& re) {
         conn->stream() << HTTPReply(re.status, re.message + "\r\n", false, false, "text/plain") << std::flush;
         return false;
     }

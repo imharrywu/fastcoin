@@ -1,5 +1,5 @@
 // Copyright (c) 2009-2010 Satoshi Nakamoto
-// Copyright (c) 2009-2014 The Bitcoin developers
+// Copyright (c) 2009-2014 The Bitcoin Core developers
 // Distributed under the MIT software license, see the accompanying
 // file COPYING or http://www.opensource.org/licenses/mit-license.php.
 
@@ -241,8 +241,8 @@ public:
             }
         }
 
-        //After new samples are added, we have to clear the sorted lists,
-        //so they'll be resorted the next time someone asks for an estimate
+        // After new samples are added, we have to clear the sorted lists,
+        // so they'll be resorted the next time someone asks for an estimate
         sortedFeeSamples.clear();
         sortedPrioritySamples.clear();
 
@@ -648,7 +648,7 @@ CTxMemPool::WriteFeeEstimates(CAutoFile& fileout) const
         fileout << CLIENT_VERSION; // version that wrote the file
         minerPolicyEstimator->Write(fileout);
     }
-    catch (const std::exception &) {
+    catch (const std::exception&) {
         LogPrintf("CTxMemPool::WriteFeeEstimates() : unable to write policy estimator data (non-fatal)");
         return false;
     }
@@ -667,7 +667,7 @@ CTxMemPool::ReadFeeEstimates(CAutoFile& filein)
         LOCK(cs);
         minerPolicyEstimator->Read(filein, minRelayFee);
     }
-    catch (const std::exception &) {
+    catch (const std::exception&) {
         LogPrintf("CTxMemPool::ReadFeeEstimates() : unable to read policy estimator data (non-fatal)");
         return false;
     }
