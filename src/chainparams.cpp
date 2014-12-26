@@ -114,7 +114,7 @@ public:
         pchMessageStart[3] = 0x0d;
         vAlertPubKey = ParseHex("04e01590abdc5967eb550413fcf04bbd7cead46f13579b58d52ea2f08d71a1a94196c476cd4fa60c30b51737fe3d9c8c88a04a6bec2282ebb1f22286130a153b85");
         nDefaultPort = 9999;
-        bnProofOfWorkLimit = ~uint256(0) >> 32;
+        bnProofOfWorkLimit = ~uint256(0) >> 8;
         nSubsidyHalvingInterval = 210000;
         nEnforceBlockUpgradeMajority = 750;
         nRejectBlockOutdatedMajority = 950;
@@ -192,7 +192,7 @@ public:
         fRequireRPCPassword = true;
         fMiningRequiresPeers = !true; // See BitcoinMiner() for details.
         fDefaultCheckMemPool = false;
-        fAllowMinDifficultyBlocks = false; // for test net, if hard to mine for a long time, then use the minimum difficulty.
+        fAllowMinDifficultyBlocks = !false; // for test net, if hard to mine for a long time, then use the minimum difficulty.
         fRequireStandard = true;
         fMineBlocksOnDemand = false; // for regression test net.
         fSkipProofOfWorkCheck = false;
