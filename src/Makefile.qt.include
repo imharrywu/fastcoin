@@ -256,9 +256,6 @@ RES_ICONS = \
   qt/res/icons/tx_input.png \
   qt/res/icons/tx_output.png \
   qt/res/icons/tx_mined.png \
-  qt/res/icons/unit_btc.png \
-  qt/res/icons/unit_mbtc.png \
-  qt/res/icons/unit_ubtc.png \
   qt/res/icons/verify.png
 
 BITCOIN_QT_CPP = \
@@ -281,8 +278,11 @@ BITCOIN_QT_CPP = \
   qt/scicon.cpp \
   qt/splashscreen.cpp \
   qt/trafficgraphwidget.cpp \
-  qt/utilitydialog.cpp \
-  qt/winshutdownmonitor.cpp
+  qt/utilitydialog.cpp
+
+if TARGET_WINDOWS
+BITCOIN_QT_CPP += qt/winshutdownmonitor.cpp
+endif
 
 if ENABLE_WALLET
 BITCOIN_QT_CPP += \
