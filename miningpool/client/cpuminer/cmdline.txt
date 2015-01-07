@@ -1,0 +1,1 @@
+./minerd  -a sha256d -o http://127.0.0.1:8332/ -u bitcoinrpc -p bitcoinrpcpassword --no-getwork --no-longpoll --no-stratum -D -P --coinbase-addr=FAHoSFokABfFGNML2ykaCP1Pnp5burbJ13 --coinbase-sig="/MinedByMinerd/"
