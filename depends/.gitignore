@@ -3,3 +3,4 @@ work/
 built/
 sources/
 config.site
+!sdk-sources/MacOSX10.7.sdk.tar.gz
