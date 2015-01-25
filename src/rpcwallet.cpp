@@ -23,8 +23,6 @@
 #include "json/json_spirit_value.h"
 
 using namespace std;
-using namespace boost;
-using namespace boost::assign;
 using namespace json_spirit;
 
 int64_t nWalletUnlockTime;
@@ -1477,7 +1475,7 @@ Value listsinceblock(const Array& params, bool fHelp)
 
     if (params.size() > 0)
     {
-        uint256 blockId = 0;
+        uint256 blockId;
 
         blockId.SetHex(params[0].get_str());
         BlockMap::iterator it = mapBlockIndex.find(blockId);
@@ -1510,7 +1508,7 @@ Value listsinceblock(const Array& params, bool fHelp)
     }
 
     CBlockIndex *pblockLast = chainActive[chainActive.Height() + 1 - target_confirms];
-    uint256 lastblock = pblockLast ? pblockLast->GetBlockHash() : 0;
+    uint256 lastblock = pblockLast ? pblockLast->GetBlockHash() : uint256();
 
     Object ret;
     ret.push_back(Pair("transactions", transactions));
@@ -1873,9 +1871,9 @@ Value lockunspent(const Array& params, bool fHelp)
         );
 
     if (params.size() == 1)
-        RPCTypeCheck(params, list_of(bool_type));
+        RPCTypeCheck(params, boost::assign::list_of(bool_type));
     else
-        RPCTypeCheck(params, list_of(bool_type)(array_type));
+        RPCTypeCheck(params, boost::assign::list_of(bool_type)(array_type));
 
     bool fUnlock = params[0].get_bool();
 
@@ -1892,7 +1890,7 @@ Value lockunspent(const Array& params, bool fHelp)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, expected object");
         const Object& o = output.get_obj();
 
-        RPCTypeCheck(o, map_list_of("txid", str_type)("vout", int_type));
+        RPCTypeCheck(o, boost::assign::map_list_of("txid", str_type)("vout", int_type));
 
         string txid = find_value(o, "txid").get_str();
         if (!IsHex(txid))
@@ -1902,7 +1900,7 @@ Value lockunspent(const Array& params, bool fHelp)
         if (nOutput < 0)
             throw JSONRPCError(RPC_INVALID_PARAMETER, "Invalid parameter, vout must be positive");
 
-        COutPoint outpt(uint256(txid), nOutput);
+        COutPoint outpt(uint256S(txid), nOutput);
 
         if (fUnlock)
             pwalletMain->UnlockCoin(outpt);

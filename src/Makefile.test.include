@@ -34,6 +34,7 @@ RAW_TEST_FILES = test/data/alertTests.raw
 GENERATED_TEST_FILES = $(JSON_TEST_FILES:.json=.json.h) $(RAW_TEST_FILES:.raw=.raw.h)
 
 BITCOIN_TESTS =\
+  test/arith_uint256_tests.cpp \
   test/bignum.h \
   test/alert_tests.cpp \
   test/allocator_tests.cpp \
@@ -57,6 +58,7 @@ BITCOIN_TESTS =\
   test/netbase_tests.cpp \
   test/pmt_tests.cpp \
   test/rpc_tests.cpp \
+  test/sanity_tests.cpp \
   test/script_P2SH_tests.cpp \
   test/script_tests.cpp \
   test/scriptnum_tests.cpp \
