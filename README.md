@@ -1,11 +1,11 @@
-Bitcoin Core integration/staging tree
+Fastcoin Core integration/staging tree
 =====================================
 
 [![Build Status](https://travis-ci.org/bitcoin/bitcoin.svg?branch=master)](https://travis-ci.org/bitcoin/bitcoin)
 
 https://www.bitcoin.org
 
-What is Bitcoin?
+What is Fastcoin?
 ----------------
 
 Bitcoin is an experimental new digital currency that enables instant payments to
