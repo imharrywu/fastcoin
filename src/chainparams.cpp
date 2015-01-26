@@ -217,7 +217,7 @@ public:
         pchMessageStart[3] = 0x0d;
         vAlertPubKey = ParseHex("045d2d29beffb0a0cbea44f266286ff8b1d11c035538fbb4dadcf6b4073b08f318afea74f01d5a3782e72a22273fb01ab40e99d93adff488236585cc8031323e7c");
         nDefaultPort = 19999;
-        bnProofOfWorkLimit = ~uint256(0) >> 1;
+        bnProofOfWorkLimit = ~arith_uint256(0) >> 1;
         nEnforceBlockUpgradeMajority = 51;
         nRejectBlockOutdatedMajority = 75;
         nToCheckBlockUpgradeMajority = 100;
@@ -277,7 +277,7 @@ public:
         pchMessageStart[2] = 0xf0;
         pchMessageStart[3] = 0x0d;
         nDefaultPort = 29999;
-        bnProofOfWorkLimit = ~uint256(0) >> 1;
+        bnProofOfWorkLimit = ~arith_uint256(0) >> 1;
 
         nSubsidyHalvingInterval = 150;
         nEnforceBlockUpgradeMajority = 750;
@@ -286,7 +286,6 @@ public:
         nMinerThreads = 1;
         nTargetTimespan = 14 * 24 * 60 * 60; //! two weeks
         nTargetSpacing = 10 * 60;
-        bnProofOfWorkLimit = ~arith_uint256(0) >> 1;
 
         // Setup genesis block's param for regtest net.
         genesis.nTime = 1296688602;
