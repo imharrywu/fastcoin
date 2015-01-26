@@ -61,7 +61,6 @@ uint256 CBlockHeader::ComputePowHash(uint32_t nNonce) const
     }else{
         // Abort, unknown block version.
         assert(false);
-        return ~(uint256)0;
     }
 }
 
