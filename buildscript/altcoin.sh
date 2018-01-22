@@ -38,6 +38,7 @@ echo Step 2: replace locale text
 
 	sed -i -e "s/FastCoin/$AnyCoin/g" src/qt/bitcoinunits.cpp
 	sed -i -e "s/FTC/$AnyCoinUintUpper/g" src/qt/bitcoinunits.cpp
+	sed -i -e "s/FTC/$AnyCoinUintUpper/g" src/qt/guiutil.cpp
 	sed -i -e "s/ftc/$AnyCoinUint/g" src/qt/bitcoinunits.cpp
 
 	sed -i -e "s/FastCoin/$AnyCoin/g" src/util.cpp	
