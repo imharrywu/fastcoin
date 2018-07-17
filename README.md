@@ -3,6 +3,8 @@ Fastcoin Core integration/staging tree
 
 >Here is a recent version of alt-coin, which tracks the core version of bitcoin. [bitgold](https://github.com/bitbaba/bitgold)
 
+>Or you can try this script `travis.sh'
+
 [![Build Status](https://travis-ci.org/bitcoin/bitcoin.svg?branch=master)](https://travis-ci.org/bitcoin/bitcoin)
 
 https://www.bitcoin.org
